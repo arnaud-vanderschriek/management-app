@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { store } from './state/store';
 import { Provider } from 'react-redux';
 import  LoginGuard  from './login/LoginGuard';
+import  LoginForm  from './login/LoginForm';
 import './styles/App.css';
 
 export class App extends React.Component {
@@ -11,7 +12,11 @@ export class App extends React.Component {
     return (
       <Router>
         <Provider store={store}>
-          <LoginGuard />
+          <LoginGuard 
+          form={<LoginForm />}
+          localToken={localStorage.getItem('test:auth-token')}>
+
+          </LoginGuard>
         </Provider>
       </Router>
     );

@@ -39,15 +39,15 @@ export class LoginForm extends React.Component<Props,State> {
             <form id="login-form">
                 <label htmlFor="username">username</label>
                 <input 
-                    type="text" 
-                    defaultValue={this.state.username}
-                    onClick={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
+                type="text" 
+                defaultValue={this.state.username}
+                onClick={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
                 </input>
                 <label htmlFor="password">password</label>
                 <input 
-                    type="password" 
-                    defaultValue={this.state.password}
-                    onClick={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
+                type="password" 
+                defaultValue={this.state.password}
+                onClick={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
                 </input>
                 <button onClick={this.handleClick}>connexion</button>
             </form>

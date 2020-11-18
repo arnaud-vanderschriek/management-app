@@ -35,8 +35,8 @@ export class LoginGuard extends React.Component<Props> {
     
     const mapState = (state: RootState, propsFromParent: any | OwnProps) =>
       ({
-        // token: state.auth.token,
-        // isVerifiedToken: state.auth.isVerifiedToken,
+        token: state.auth.token,
+        isVerifiedToken: state.auth.isVerifiedToken,
         form: propsFromParent.form,
         localToken: propsFromParent.localToken || null,
       });

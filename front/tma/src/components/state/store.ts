@@ -1,5 +1,5 @@
 import { RematchRootState, init } from '@rematch/core';
-import { auth } from '../login/state/models/auth';
+import * as auth from '../login/state/models/auth';
 
 const models = {
   ...auth,
@@ -8,12 +8,6 @@ const models = {
 export const store = init({
     models,
 });
-
-// export type RootState = RematchRootState<typeof models>
-
-// declare module 'react-redux' {
-
-// }
 
 export type RootState = RematchRootState<typeof models>
 export type RootDispatch = typeof store.dispatch;
