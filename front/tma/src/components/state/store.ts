@@ -1,7 +1,8 @@
 import { RematchRootState, init } from '@rematch/core';
+import { auth } from '../login/state/models/auth';
 
 const models = {
-
+  ...auth,
 }
 
 export const store = init({

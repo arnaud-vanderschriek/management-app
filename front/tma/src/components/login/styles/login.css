@@ -1,4 +1,10 @@
 #login-form {
   display: flex;
   flex-direction: column;
+  width: 25%;
+  position: relative;
+  top: 300px;
+  left: 500px;
+  border: 1px solid black;
+  justify-content: space-between;
 }
