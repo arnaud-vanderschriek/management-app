@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+const users = require("./routes/users");
 const cors = require('cors');
 
 const app = express();
@@ -16,6 +16,7 @@ app.use(bodyParser.json({ limit: "10mb"}));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 app.use(express.json());
 
+app.use("/users", users);
 // testing route /post WARNING this is must be set up in route folder that's not created anymore
 
 const posts = [
