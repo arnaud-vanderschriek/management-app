@@ -27,8 +27,12 @@ users.get('/posts', (req, res) => {
 
 users.post('/login', (req, res) => {
     // see authentication User https://youtu.be/Ud5xKCYQTjM 
-
-    const username = req.body.username
+    const token = 'azezaezaeezar213'
+    console.log(req.body)
+    const user =  { name: req.body.username, password: req.body.password, token: token }
+    // console.log(user, "username");
+    res.status(201)
+    res.json(user)
 })
 
 module.exports = users;

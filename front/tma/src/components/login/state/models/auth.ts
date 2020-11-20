@@ -38,14 +38,15 @@ export const auth = createModel({
 
     async login(dto: UserAuthenticationDto) {
       try {
-        const { data } = await apiService.post('/login', dto);
-
+        console.log(dto, 'dto')
+        const { data } = await apiService.post('/users/login', dto);
+        console.log(data, "data received")
         if (!data.token) {
           throw new Error('there is no token in the response');
         }
 
         this.updateToken(data.token);
-        localStorage.setItem('hdm:admin:auth-token', data.token);
+        localStorage.setItem('managementApp:admin:auth-token', data.token);
       } catch (error) {
         (new Toastify()).error(`Failed to login. ${error.message}`);
       }

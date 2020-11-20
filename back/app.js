@@ -8,16 +8,21 @@ const app = express();
 const port = 8000;
 
 app.use(
-    cors({
-        origin: '*',
-    })
+    cors(
+        {
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 200
+          }
+    )
 )
 
 app.use(bodyParser.json({ limit: "10mb"}));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 // app.use(express.json());
 
-app.use("./users", users);
+app.use("/users", users);
 
 app.listen(port, "localhost", () => {
     console.log(`listening on port ${port}`);

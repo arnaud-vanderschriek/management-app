@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import  LoginGuard  from './login/LoginGuard';
 import  LoginForm  from './login/LoginForm';
 import './styles/App.css';
+import { Dashboard } from './dashboard/Dashboard';
 
 export class App extends React.Component {
   render() {
@@ -15,7 +16,7 @@ export class App extends React.Component {
           <LoginGuard 
           form={<LoginForm />}
           localToken={localStorage.getItem('test:auth-token')}>
-
+            <Dashboard />
           </LoginGuard>
         </Provider>
       </Router>

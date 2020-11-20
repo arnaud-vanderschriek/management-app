@@ -28,11 +28,17 @@ export class LoginForm extends React.Component<Props,State> {
         const state: State = {...this.state};   
         state[field] = value;
         this.setState(state)
-        console.log(field);
+        console.log(state, "State");
     }
 
-    handleClick = () => {
-        console.log("hebentoi");
+    handleClick = (event: MouseEvent) => {
+         this.props.login({
+            username: this.state.username,
+            email: "",
+            password: this.state.password,
+        })
+        
+        event.preventDefault();  
     }
 
     render() {
@@ -48,7 +54,7 @@ export class LoginForm extends React.Component<Props,State> {
                             className="login-form-input"
                             type="text" 
                             defaultValue={this.state.username}
-                            onClick={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
+                            onChange={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
                         </input>
                     </div>
                     <label className="login-form-label" htmlFor="password">password</label>
@@ -57,7 +63,7 @@ export class LoginForm extends React.Component<Props,State> {
                             className="login-form-input"
                             type="password" 
                             defaultValue={this.state.password}
-                            onClick={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
+                            onChange={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
                         </input>
                     </div>
                 </div>
@@ -67,7 +73,7 @@ export class LoginForm extends React.Component<Props,State> {
                         <a href="./"><p>mot de passe oublié ?</p></a>
                     </div>
                     <div id="login-form-footer-button-box">
-                        <button id="login-form-submit-button" onClick={this.handleClick}>connexion</button>
+                        <button id="login-form-submit-button" onClick={(event) =>this.handleClick(event as unknown as MouseEvent)}>connexion</button>
                     </div>
                 </div>
             </form>

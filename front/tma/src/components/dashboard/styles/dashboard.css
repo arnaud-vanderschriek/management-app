@@ -1,0 +1,6 @@
+#dashboard {
+  display: flex;
+  justify-content: center;
+  color: rgb(115, 169, 194);
+  box-shadow: 5px 5px 5px rgb(99, 96, 96);
+}
