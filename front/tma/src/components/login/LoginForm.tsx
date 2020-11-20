@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import './styles/login.css'
 
 interface Props {
     login: (dto: {
@@ -37,19 +38,38 @@ export class LoginForm extends React.Component<Props,State> {
     render() {
         return (
             <form id="login-form">
-                <label htmlFor="username">username</label>
-                <input 
-                type="text" 
-                defaultValue={this.state.username}
-                onClick={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
-                </input>
-                <label htmlFor="password">password</label>
-                <input 
-                type="password" 
-                defaultValue={this.state.password}
-                onClick={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
-                </input>
-                <button onClick={this.handleClick}>connexion</button>
+                <div id="login-form-header">
+                    <h2 id="login-form-header-title">connexion</h2>
+                </div>
+                <div id="login-form-body">
+                    <label className="login-form-label" htmlFor="username">username</label>
+                    <div className="login-form-input-box">
+                        <input 
+                            className="login-form-input"
+                            type="text" 
+                            defaultValue={this.state.username}
+                            onClick={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
+                        </input>
+                    </div>
+                    <label className="login-form-label" htmlFor="password">password</label>
+                    <div className="login-form-input-box">
+                        <input 
+                            className="login-form-input"
+                            type="password" 
+                            defaultValue={this.state.password}
+                            onClick={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
+                        </input>
+                    </div>
+                </div>
+                <div id="login-form-footer">
+                    <div id="login-form-footer-link">
+                        <a href="./"><p>déja enregistré ?</p></a>
+                        <a href="./"><p>mot de passe oublié ?</p></a>
+                    </div>
+                    <div id="login-form-footer-button-box">
+                        <button id="login-form-submit-button" onClick={this.handleClick}>connexion</button>
+                    </div>
+                </div>
             </form>
         )
     }
