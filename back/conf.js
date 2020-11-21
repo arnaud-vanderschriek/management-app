@@ -13,3 +13,5 @@ connexion.connect(function (err) {
     if (err) throw err("there is a problem with the database connexion");
     console.log("you are connected to the database !");
 })
+
+module.exports = connexion;

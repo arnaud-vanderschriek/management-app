@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 import { env } from '../helpers/environment';
 
 let tokenInterceptor: number = -1;
+
 export const apiService = axios.create({
   baseURL: env('API_URL'),
 });

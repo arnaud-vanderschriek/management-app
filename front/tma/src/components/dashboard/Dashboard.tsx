@@ -6,6 +6,7 @@ export class Dashboard extends React.Component {
         return (
             <div id="dashboard">
                 <h1>DashBoard</h1>
+                {this.props.children}
             </div>
         );
     }
