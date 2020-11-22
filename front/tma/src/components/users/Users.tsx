@@ -4,8 +4,10 @@ export class Users extends React.Component {
     render() {
         return (
             <div>
-                <h1>Affichage des Utilisateurs</h1>
+                <h2>Affichage des Utilisateurs</h2>
             </div>
         )
     }
 }
+
+export default Users;

@@ -28,7 +28,6 @@ export class LoginForm extends React.Component<Props,State> {
         const state: State = {...this.state};   
         state[field] = value;
         this.setState(state)
-        console.log(state, "State");
     }
 
     handleClick = (event: MouseEvent) => {

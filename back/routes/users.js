@@ -15,16 +15,18 @@ users.post('/login', (req, res) => {
       username: '',
       password: '',
       token: '',
+      status: '',
   }
-  
+
   connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}' 
     AND (status='user' OR status='admin')`, (err, result) => {
     if (err) res.json('login error')    
     else {
       if( result[0] && result[0].password === req.body.password) {
-          user.name = req.body.username;
-          user.password = req.body.password;  
+          user.username = result[0].username;
+          user.password = result[0].password;  
           user.token = jwt.sign(user.token, process.env.ACCESS_TOKEN_SECRET);
+          user.status = result[0].status;
 
           res.json(user)
 
@@ -33,7 +35,7 @@ users.post('/login', (req, res) => {
       }   
     }
   })
-    // see authentication User https://youtu.be/Ud5xKCYQTjM 
+ 
   res.status(201)
 
 })

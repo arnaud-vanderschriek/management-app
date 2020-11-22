@@ -1,6 +1,7 @@
 import { createModel } from '@rematch/core';
 import { addTokenToRequestInterceptor, apiService, clearTokenFromAxios } from '../../../http/service';
 import { Toastify } from '../../../helpers/Toastify';
+import { UserLoginInterface } from '../../index'
 
 export interface UserAuthenticationDto {
   email: string,
@@ -11,15 +12,18 @@ export interface UserAuthenticationDto {
 type AuthState = {
   token: string | null,
   isVerifiedToken: boolean,
+  list: UserLoginInterface,
 };
 
 export const auth = createModel({
   state: {
     token: null,
     isVerifiedToken: false,
+    list: {} as UserLoginInterface,
   },
   reducers: {
     updateToken: (state: AuthState, payload: string): AuthState => ({ ...state, token: payload }),
+    updateUser: (state: AuthState, list: UserLoginInterface): AuthState => ({...state, list }),
     setIsVerifiedToken: (state: AuthState, payload: boolean): AuthState => ({ ...state, isVerifiedToken: payload }),
     clearToken: (state: AuthState): AuthState => ({ ...state, token: null }),
   },
@@ -38,14 +42,15 @@ export const auth = createModel({
 
     async login(dto: UserAuthenticationDto) {
       try {
-        console.log(dto, 'dto')
         const { data } = await apiService.post('/users/login', dto);
-        console.log(data, "data received")
+    
         if (!data.token) {
           throw new Error('there is no token in the response');
         }
-
+     
         this.updateToken(data.token);
+        this.updateUser(data);
+
         localStorage.setItem('managementApp:admin:auth-token', data.token);
       } catch (error) {
         (new Toastify()).error(`Failed to login. ${error.message}`);

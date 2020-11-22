@@ -6,7 +6,9 @@ import { Provider } from 'react-redux';
 import  LoginGuard  from './login/LoginGuard';
 import  LoginForm  from './login/LoginForm';
 import './styles/App.css';
-import { Dashboard } from './dashboard/Dashboard';
+import  Dashboard from './dashboard/Dashboard';
+import  Users  from './users/Users';
+import Admin from './admins/Admin';
 
 export class App extends React.Component {
   render() {
