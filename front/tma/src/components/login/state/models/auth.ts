@@ -31,7 +31,9 @@ export const auth = createModel({
     async verifyToken(token: string) {
       try {
         addTokenToRequestInterceptor(token);
-        await apiService.post('/token/verify', {});
+        const data = await apiService.post('/users/token/verify', {});
+        console.log('data in verifyToken: ', data);
+        console.log('Token: ', token);
         this.updateToken(token);
       } catch (error) {
         await clearTokenFromAxios();
@@ -43,11 +45,10 @@ export const auth = createModel({
     async login(dto: UserAuthenticationDto) {
       try {
         const { data } = await apiService.post('/users/login', dto);
-    
         if (!data.token) {
           throw new Error('there is no token in the response');
         }
-     
+        // console.log('data: ',data)
         this.updateToken(data.token);
         this.updateUser(data);
 
@@ -58,7 +59,9 @@ export const auth = createModel({
     },
 
     async logout() {
+      console.log('entrée dans la fonction avant clearTokenFromAxios')
       await clearTokenFromAxios();
+      console.log('entrée dans la fonction apres clearTokenFromAxios')
       this.clearToken();
       localStorage.clear();
     },

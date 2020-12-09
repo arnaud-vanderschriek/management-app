@@ -18,7 +18,7 @@ export class App extends React.Component {
           <LoginGuard 
           form={<LoginForm />}
           localToken={localStorage.getItem('test:auth-token')}>
-            <Dashboard />
+           <Route to='/dashboard' exact component={Dashboard} />
           </LoginGuard>
         </Provider>
       </Router>

@@ -2,8 +2,10 @@ const connexion = require("../conf.js");
 const express = require("express");
 const jwt = require('jsonwebtoken');
 const Joi = require('joi')
+const newToken = require('../helpers/generateToken.js');
 
 let bcrypt = require('bcryptjs');
+const generateToken = require("../helpers/generateToken.js");
 const users = express.Router();
 
 require('dotenv').config();
@@ -19,25 +21,37 @@ users.post('/login', (req, res) => {
   }
 
   connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}' 
-    AND (status='user' OR status='admin')`, (err, result) => {
-    if (err) res.json('login error')    
+    AND (status='user' OR status='admin')`, (err, resultat) => {
+    if (err) res.json('login error') 
     else {
-      if( result[0] && result[0].password === req.body.password) {
-          user.username = result[0].username;
-          user.password = result[0].password;  
-          user.token = jwt.sign(user.token, process.env.ACCESS_TOKEN_SECRET);
-          user.status = result[0].status;
+      if( resultat[0] && resultat[0].password === req.body.password) {
+        const token = generateToken();
 
-          res.json(user)
+        connexion.query(`UPDATE users SET token ='${token}' WHERE username='${resultat[0].username}'`, (err, result) => {
+          if(err) res.json('impossible to insert token')
+          else {
+            console.log('nouveau token: ', token);
 
-      }else {
+            user.username = resultat[0].username;
+            user.password = resultat[0].password;  
+            user.token = token;
+            user.status = resultat[0].status;
+            
+            res.json(user)
+          }
+        })
+      } else {
           res.json('error, pas de compte associé');
       }   
     }
   })
  
   res.status(201)
+})
 
+users.post('/token/verify', (req, res) => {
+  console.log('yataa: ');
+  res.json({data: "yop"});
 })
 
 module.exports = users;

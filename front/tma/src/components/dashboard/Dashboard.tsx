@@ -1,16 +1,22 @@
 import { connect } from "react-redux";
 import React from "react";
 import { RootDispatch, RootState } from "../state/store";
-import './styles/dashboard.css'
 import { UserLoginInterface } from "../login/index";
 import Users from "../users/Users";
-import { Admin } from "../admins/Admin";
+import './styles/dashboard.css'
+import Admin from "../admins/Admin";
 
 interface Props {
     data: UserLoginInterface,
+    token: string | null,
+    verifyToken: (token: string | null) => Promise<void>,
 }
 
 export class Dashboard extends React.Component<Props> { 
+    componentDidMount = () => {
+        this.props.verifyToken(this.props.token)
+    }
+
     render() {
         return (
             <div>
@@ -24,8 +30,11 @@ export class Dashboard extends React.Component<Props> {
 }
 const mapState = (state: RootState) => ({
     data: state.auth.list,
+    token: state.auth.token,
 });
 
-const mapDispatch = (dispatch: RootDispatch) => ({});
+const mapDispatch = (dispatch: any) => ({
+    verifyToken: dispatch.auth.verifyToken,
+});
 
 export default connect(mapState, mapDispatch)(Dashboard); 

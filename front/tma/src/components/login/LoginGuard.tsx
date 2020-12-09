@@ -44,4 +44,3 @@ export class LoginGuard extends React.Component<Props> {
     const mapDispatch = (dispatch: any) => ({ verifyToken: dispatch.auth.verifyToken });
     
     export default connect(mapState, mapDispatch)(LoginGuard);
-
