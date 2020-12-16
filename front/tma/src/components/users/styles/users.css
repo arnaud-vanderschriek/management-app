@@ -1,0 +1,52 @@
+#userProjectSelection {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+input {
+    width: 20px;
+}
+
+/* select {
+    width: 50%;
+} */
+
+td {
+    width: 150px;
+}
+
+.title-table {
+    background-color: rgb(88, 166, 185);
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    font-family: 'Roboto','sans-serif';
+  }
+  
+  .companies-table {
+    width: 100%;
+  }
+
+  .content-table {
+    color: #888888;
+    font-size: 1.7rem;
+    font-family: 'Roboto','sans-serif';
+  }
+
+  .user-fields {
+      width: 20px;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 50px;
+    width: 100%;
+}
+  
+
+#test {
+
+}
