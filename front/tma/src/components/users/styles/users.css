@@ -50,3 +50,38 @@ td {
 #test {
 
 }
+
+
+/* ---------- Popup --------- */
+
+#userPage-Popup {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background-color: rgb(252, 252, 252);
+  border: 1px solid black;
+  position: absolute;
+  top: 50px;
+  left: 25%;
+}
+
+#userPage-Popup-hide {
+  display: none;
+}
+
+.userPage-button {
+  justify-content: end;
+  width: 25px;
+  background-color: red;
+  color: white;
+}
+
+#button-box {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#userPagePopupTextarea {
+  height: 200px;
+  margin: 10px;
+}

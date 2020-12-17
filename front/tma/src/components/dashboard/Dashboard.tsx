@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import React from "react";
-import { RootDispatch, RootState } from "../state/store";
+import { RootState } from "../state/store";
 import { UserLoginInterface } from "../login/index";
-import Users from "../users/UsersPage";
+import Users from "../users/UsersPageContainer";
 import './styles/dashboard.css'
 import Admin from "../admins/Admin";
 
@@ -13,24 +13,25 @@ interface Props {
 }
 
 export class Dashboard extends React.Component<Props> { 
-    componentDidMount = () => {
-        this.props.verifyToken(this.props.token)
-    }
+  componentDidMount = () => {
+      this.props.verifyToken(this.props.token)
+  }
 
-    render() {
-        return (
-            <div>
-                <div id="footer-dashboard">
-                    <h1>DashBoard</h1>
-                </div>
-                {this.props.data.status === 'admin' ? <Admin image={[]} /> : <Users />}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div id="footer-dashboard">
+            <h1>DashBoard</h1>
+        </div>
+        {this.props.data.status === 'admin' ? <Admin image={[]} /> : <Users />}
+      </div>
+    );
+  }
 }
 const mapState = (state: RootState) => ({
     data: state.auth.list,
     token: state.auth.token,
+    isModalOpened: state.users.isModalOpened,
 });
 
 const mapDispatch = (dispatch: any) => ({
