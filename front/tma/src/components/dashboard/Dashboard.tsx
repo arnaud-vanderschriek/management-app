@@ -3,8 +3,9 @@ import React from "react";
 import { RootState } from "../state/store";
 import { UserLoginInterface } from "../login/index";
 import Users from "../users/UsersPageContainer";
-import './styles/dashboard.css'
 import Admin from "../admins/Admin";
+import Navbar from "../navbar/Navbar";
+import './styles/dashboard.css';
 
 interface Props {
     data: UserLoginInterface,
@@ -23,7 +24,8 @@ export class Dashboard extends React.Component<Props> {
         <div id="footer-dashboard">
             <h1>DashBoard</h1>
         </div>
-        {this.props.data.status === 'admin' ? <Admin image={[]} /> : <Users />}
+        <Navbar />
+        {this.props.data.status === 'admin' ? <Admin /> : <Users />}
       </div>
     );
   }

@@ -1,11 +1,13 @@
 import { createModel } from "@rematch/core";
 
 type UsersSate = {
+  list: [],
   isModalOpened: boolean,
 }
 
 export const users = createModel({
     state: {
+      list: [],
       isModalOpened: false,
     },
     reducers: {

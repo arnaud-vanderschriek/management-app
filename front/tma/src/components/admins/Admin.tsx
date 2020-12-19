@@ -1,31 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { RootState } from "../state/store";
 
-// interface Props {
-//     token: string | null,
-//     logout: () => Promise<void>
-//     verifyToken: (token: string | null) => Promise<void>
-// }
-
-interface State {
-    image: []
-}
-
-export class Admin extends React.Component<State> {
-    constructor(state: State) {
-        super(state);
-
-        this.state = {
-            image: [],
-        }
-    }
-    test = (name: any) => {
-        // this.setState({
-        //     image: name,
-        // })
-    }
-
+export class Admin extends React.Component {
     render() {
         return (
             <div>
