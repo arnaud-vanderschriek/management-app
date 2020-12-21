@@ -1,5 +1,6 @@
 #navbar {
     margin-top: 10px;
+    height: 3rem;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -11,6 +12,7 @@
 
 #navbar-right {
   margin-left: 15px;
+  align-self: center;
 }
 
 #navbar-left {
@@ -43,4 +45,22 @@
 
 #navbar-logout-button:active {
     font-size: 30px;
+}
+
+
+/* ----------------- NavbarMailingPopup --------------- */
+
+#navbar-mailing-popup {
+    z-index: 1;
+    position: absolute;
+    top: 50px;
+    left: 500px;
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+    background-color: rgb(252, 252, 252);
+}
+
+#navbar-mailing-popup-hide {
+    display: none;
 }

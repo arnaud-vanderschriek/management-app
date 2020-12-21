@@ -21,7 +21,7 @@ export class UsersPageElements extends React.Component<Props, State> {
     return (
       <tr>
         <td>
-        <select name="project" id="project-select">
+          <select name="project" id="project-select">
             <option value="">--Please choose an option--</option>
             <option value="project1">project1</option>
             <option value="project2">project2</option>
@@ -29,10 +29,10 @@ export class UsersPageElements extends React.Component<Props, State> {
             <option value="project4">project4</option>
             <option value="project5">project5</option>
             <option value="project6">project6</option>
-        </select>
+          </select>
         </td>
         <td>
-        <select name="task" id="task-select">
+          <select name="task" id="task-select">
             <option value="">--Please choose an option--</option>
             <option value="task1">task1</option>
             <option value="task2">task2</option>
@@ -40,7 +40,7 @@ export class UsersPageElements extends React.Component<Props, State> {
             <option value="task4">task4</option>
             <option value="task5">task5</option>
             <option value="task6">task6</option>
-        </select>
+          </select>
         </td>
         <td>
             <input type="checkbox"/>
@@ -67,7 +67,7 @@ export class UsersPageElements extends React.Component<Props, State> {
             <input type="text"/>
         </td>
         <td>
-        <button type="button" onClick={() => this.modalOpened()}>pop-up</button>
+          <button type="button" onClick={() => this.modalOpened()}>pop-up</button>
         </td>
       </tr>
     )
