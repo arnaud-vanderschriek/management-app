@@ -21,8 +21,8 @@ export class UsersPageElements extends React.Component<Props, State> {
     return (
       <tr>
         <td>
-          <select name="project" id="project-select">
-            <option value="">--Please choose an option--</option>
+          <select name="project" className="project-select-input">
+            <option value="">Project</option>
             <option value="project1">project1</option>
             <option value="project2">project2</option>
             <option value="project3">project3</option>
@@ -32,8 +32,8 @@ export class UsersPageElements extends React.Component<Props, State> {
           </select>
         </td>
         <td>
-          <select name="task" id="task-select">
-            <option value="">--Please choose an option--</option>
+          <select name="task" className="project-select-input">
+            <option value="">Task</option>
             <option value="task1">task1</option>
             <option value="task2">task2</option>
             <option value="task3">task3</option>
@@ -43,28 +43,28 @@ export class UsersPageElements extends React.Component<Props, State> {
           </select>
         </td>
         <td>
-            <input type="checkbox"/>
+            <input type="checkbox" className="project-date-input" />
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input" />
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input" />
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input" />
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input" />
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input"/>
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input"/>
         </td>
         <td className="user-fields">
-            <input type="text"/>
+            <input type="text" className="project-date-input"/>
         </td>
         <td>
           <button type="button" onClick={() => this.modalOpened()}>pop-up</button>

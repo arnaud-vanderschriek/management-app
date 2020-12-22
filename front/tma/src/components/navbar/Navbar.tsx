@@ -34,7 +34,7 @@ export class Navbar extends React.Component<Props> {
             </button>
           </div>
         </div>
-        <NavbarMailingPopup />
+        <NavbarMailingPopup list={this.props.list}/>
       </nav>
     )
   }

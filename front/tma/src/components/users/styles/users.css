@@ -1,19 +1,8 @@
+
 #userProjectSelection {
     display: flex;
     flex-direction: column;
     width: 25%;
-}
-
-input {
-    width: 20px;
-}
-
-/* select {
-    width: 50%;
-} */
-
-td {
-    width: 150px;
 }
 
 .title-table {
@@ -25,7 +14,9 @@ td {
   }
   
   .companies-table {
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
   }
 
   .content-table {
@@ -35,7 +26,15 @@ td {
   }
 
   .user-fields {
-      width: 20px;
+      width: 10px;
+  }
+
+  .project-select-input {
+    width: 100px;
+  }
+
+  .project-date-input {
+    width: 20px;
   }
 
   #container {

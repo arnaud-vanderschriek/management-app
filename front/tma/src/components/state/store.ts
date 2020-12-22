@@ -2,11 +2,13 @@ import { RematchRootState, init } from '@rematch/core';
 import * as auth from '../login/state/models/auth';
 import * as users from '../users/state/models/users';
 import * as navbar from '../navbar/state/models/navbar';
+import * as admin from '../admins/state/models/admin';
 
 const models = {
   ...auth,
   ...users,
   ...navbar,
+  ...admin,
 }
 
 export const store = init({
