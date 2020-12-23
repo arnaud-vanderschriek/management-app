@@ -7,19 +7,20 @@
 #admin-project-name {
     display: flex;
     flex-direction: column;
+    height: 450px;
     width: 200px;
     box-shadow: 5px 5px 6px rgb(123, 170, 202);
     padding: 50px;
 }
 
-#admin-project-dates {
+/* #admin-project-dates {
     display: flex;
     flex-direction: column;
     width: 200px;
     box-shadow: 5px 5px 6px rgb(123, 170, 202);
     padding: 50px;
     margin-top: 20px;
-}
+} */
 
 .admin-project-label {
     margin-top: 25px;

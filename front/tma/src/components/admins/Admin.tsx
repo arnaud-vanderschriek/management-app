@@ -1,4 +1,5 @@
 import React from "react";
+import AdminPageSelect from './AdminPageSelect';
 import './styles/admin.css';
 
 interface Props {
@@ -13,16 +14,17 @@ interface State {
 }
 
 export class Admin extends React.Component<Props, State> {
-constructor(props: Props) {
-  super(props);
+  constructor(props: Props) {
+    super(props);
 
-  this.state = {
-    projectName: '',
-    projectCode: '',
-    startDate: '',
-    endDate: '',
+    this.state = {
+      projectName: '',
+      projectCode: '',
+      startDate: '',
+      endDate: '',
+    }
   }
-}
+
   setDataProject = (field: 'projectName' | 'projectCode' | 'startDate' | 'endDate', value: string) => {
     const state: State = {...this.state};
     state[field] = value;
@@ -35,29 +37,36 @@ constructor(props: Props) {
       <div id="admin-project">
         <div id="admin-project-name">
           <label className="admin-project-label">Project name: </label>
-          <input type="text" name="projectName" onChange={(e) => this.setDataProject('projectName', (e.target as HTMLInputElement).value)} />
+          <input 
+            type="text" 
+            name="projectName" 
+            onChange={(e) => this.setDataProject('projectName', (e.target as HTMLInputElement).value)} />
           <label className="admin-project-label">Project code: </label>
           <select onChange={(e) => this.setDataProject('projectCode', (e.target as unknown as HTMLInputElement).value )}>
-            <option value="A1">A1</option>
-            <option value="M3">M3</option>
-            <option value="C5">C5</option>
-            <option value="B2">B2</option>
-            <option value="A">A</option>
-            <option value="H">H</option>
+            <AdminPageSelect tab={[
+              {value: 'A1'},
+              {value: 'M3'},
+              {value: 'C5'},
+              {value: 'B2'},
+              {value: 'A'},
+              {value: 'H'},
+            ]} />
           </select>
-        </div>
-        <div id="admin-project-dates">
           <label className="admin-project-label">start date</label>
           <input type="date" id='' name="calendar" onChange={(e) => this.setDataProject('startDate', (e.target as unknown as HTMLInputElement).value )}/>
           <label className="admin-project-label">end date</label>
           <input type="date" onChange={(e) => this.setDataProject('endDate', (e.target as unknown as HTMLInputElement).value )} />
         </div>
+        {/* <div id="admin-project-dates">
+         
+        </div> */}
         <div>
         </div>
       </div>
     )
   }
 }
+
 // const mapState = (state: RootState) => ({
 //     token: state.auth.token
 // })
