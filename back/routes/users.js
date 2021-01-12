@@ -54,4 +54,15 @@ users.post('/token/verify', (req, res) => {
   res.json({data: "yop"});
 })
 
+users.post('/dataProject', (req, res) => {
+  console.log("project:", req.body)
+  connexion.query(`INSERT INTO project(project_name, project_code, month, start_date, end_date) 
+  VALUES('${req.body.projectName}', '${req.body.projectCode}', '${req.body.month}', '${req.body.startDate}', '${req.body.endDate}')`, (err) => {
+    if(err) res.json('impossible to insert project')
+    else {
+      res.json("insert successfull")
+    }
+  })
+})
+
 module.exports = users;
