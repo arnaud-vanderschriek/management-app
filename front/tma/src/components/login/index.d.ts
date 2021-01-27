@@ -4,3 +4,4 @@ export interface UserLoginInterface {
     token: string,
     status: string,
 }
+

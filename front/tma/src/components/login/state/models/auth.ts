@@ -41,7 +41,6 @@ export const auth = createModel({
         this.setIsVerifiedToken(true);
       }
     },
-
     async login(dto: UserAuthenticationDto) {
       try {
         const { data } = await apiService.post('/users/login', dto);

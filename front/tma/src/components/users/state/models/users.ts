@@ -14,6 +14,8 @@ export const users = createModel({
       setIsModalOpened: (state: UsersSate, payload: boolean): UsersSate => ({...state, isModalOpened: payload}),
     },
     effects: {
-
+      async fetchDataProject(): Promise<void> {
+        
+      }
     }
 })
