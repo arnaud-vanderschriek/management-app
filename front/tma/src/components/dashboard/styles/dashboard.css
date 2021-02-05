@@ -11,22 +11,33 @@
 #header-dashboard-leftSide {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   width: 300px;
   background-color: #232f3e;
   color: white;
 }
 
 #icon-box {
+  display: flex;
+  justify-content: center;
+    border: 1px rgba(255, 255, 255, 0.2) solid ;
+  height: 100%;
+  width: 100%;
   font-size: 40px;
-  align-self: center;
+  vertical-align: center;
 }
 
 #icon {
-  margin-top: 20px;
 }
 
-#header-dashboard-leftSide h4 {
-  margin: 10px;
+#title-box {
+  display: flex;
+  border: 1px rgba(255, 255, 255, 0.2) solid ;
+  justify-content: center;
+}
+
+#header-dashboard-leftSide h3 {
+  align-items: center;
   height: 100%;
 }
 
@@ -38,6 +49,7 @@
   height: 100%;
   width: 100%;
   background-color: rgb(115, 169, 194);
+  border: 1px rgba(255, 255, 255, 0.2) solid ;
 }
 
 #header-dashboard-rightSide h1{

@@ -13,8 +13,9 @@
   width: 300px;
   background-color: #18202c;
 }
+
 .user-nav-menu-boxes {
-  margin-left: 15px;
+  margin-left: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
@@ -26,13 +27,13 @@
 }
 
 .user-nav-boxes-title p {
-  margin-left: 10px
+  margin-left: 10px;
 }
 
 .user-nav-menu-link {
   color: white;
   text-decoration: none;
-  margin-left: 35px;
+  margin-left: 25px;
 }
 
 #userProjectSelection {
