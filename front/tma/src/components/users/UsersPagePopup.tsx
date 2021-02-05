@@ -38,10 +38,11 @@ export class UserPagePopup extends React.Component<Props, State> {
         <div id='button-box'>
           <button className='userPage-button' type='submit' onClick={() => this.closeUserPage()}>x</button>
         </div>
-          <h4>Commentary</h4>
-          <textarea id='userPagePopupTextarea' onChange={(e) => this.handleChange('text',(e.target as unknown as HTMLInputElement).value)}></textarea>
+          <h4 id='userPagePopupTitle'>Commentary</h4>
+          <textarea id='userPagePopupTextarea' onChange={(e) =>
+            this.handleChange('text', (e.target as unknown as HTMLInputElement).value)}/>
          <div>
-           <button type='submit'>envoyer</button>
+           <button id='userPagePopupButton' type='submit'>envoyer</button>
          </div>
       </div>
     );

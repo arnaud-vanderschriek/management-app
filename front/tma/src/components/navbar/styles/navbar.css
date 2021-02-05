@@ -5,9 +5,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    box-shadow: 5px 5px 6px rgb(123, 170, 202); 
-    /* background-color: rgb(115, 169, 194);
-    color: white; */
+    background-color: rgb(115, 169, 194);
+    color: white; 
 }
 
 #navbar-right {
@@ -28,7 +27,7 @@
     border-style: none;
     background: transparent;
     font-size: 20px;
-    color: rgb(115, 169, 194)
+    color: white;
 }
 
 #navbar-logout {
@@ -40,7 +39,7 @@
     border-style: none;
     background: transparent;
     font-size: 20px;
-    color: rgb(115, 169, 194)
+    color:white;
 }
 
 #navbar-logout-button:active {

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { store } from './state/store';

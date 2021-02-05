@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from "react-redux";
 import React from "react";
 import { RootState } from "../state/store";
@@ -5,12 +6,13 @@ import { UserLoginInterface } from "../login/index";
 import Users from "../users/UsersPageContainer";
 import NavbarContainer from "../navbar/NavbarContainer";
 import AdminContainer from "../admins/AdminContainer";
+import { faRocket } from '@fortawesome/free-solid-svg-icons';
 import './styles/dashboard.css';
 
 interface Props {
-    data: UserLoginInterface,
-    token: string | null,
-    verifyToken: (token: string | null) => Promise<void>,
+  data: UserLoginInterface,
+  token: string | null,
+  verifyToken: (token: string | null) => Promise<void>,
 }
 
 export class Dashboard extends React.Component<Props> { 
@@ -20,12 +22,22 @@ export class Dashboard extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        <div id="footer-dashboard">
-          <h1>DashBoard</h1>
+      <div id="dashboard">
+        <div id='header-dashboard'>
+          <div id='header-dashboard-leftSide'>
+            <div id='icon-box'>
+              <FontAwesomeIcon id='icon' icon={faRocket} />
+            </div>
+            <div id='title-box'>
+              <h3>Management App</h3>
+            </div>
+          </div>
+          <div id='header-dashboard-rightSide'>
+            <h1>DashBoard</h1>
+            <NavbarContainer list={this.props.data}/>
+          </div>
         </div>
-        <NavbarContainer list={this.props.data}/>
-        {this.props.data.status === 'admin' ? <AdminContainer /> : <Users />}
+         {this.props.data.status === 'admin' ? <AdminContainer /> : <Users />}
       </div>
     );
   }
