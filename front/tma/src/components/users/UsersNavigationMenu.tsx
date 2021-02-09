@@ -1,4 +1,4 @@
-import { faHouseUser} from '@fortawesome/free-solid-svg-icons';
+import { faCoins, faHouseUser } from '@fortawesome/free-solid-svg-icons';
 import {faCalendarTimes} from '@fortawesome/free-solid-svg-icons';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,35 +17,46 @@ export class UsersNavigationMenu extends React.Component<Props> {
       <div className='user-nav-menu-boxes'>
         <div className='user-nav-boxes-title'>
           <FontAwesomeIcon icon={faHouseUser} />
-          <p><u>HOME</u></p>
+          <p>HOME</p>
         </div>
-        <a className='user-nav-menu-link' href='/#' onClick={() => this.props.setLinkList('info')}>
-          Info
-        </a>
+        <div className='user-nav-boxes-link'>
+          <a className='user-nav-menu-link' href='/#' onClick={() => this.props.setLinkList('info')}>
+            Info
+          </a>
+        </div>
       </div>
       <div className='user-nav-menu-boxes'>
         <div className='user-nav-boxes-title'>
           <FontAwesomeIcon icon={faCalendarTimes} />
-          <p><u>TIMESHEET</u></p>
+          <p>TIMESHEET</p>
         </div>
-        <a className='user-nav-menu-link' href="/#" onClick={() => this.props.setLinkList('timesheet')}>
-          Enter your TimeSheet
-        </a>
+        <div className='user-nav-boxes-link'>
+          <a className='user-nav-menu-link' href="/#" onClick={() => this.props.setLinkList('timesheet')}>
+            Enter your TimeSheet
+          </a>
+        </div>
       </div>
       <div className='user-nav-menu-boxes'>
         <div className='user-nav-boxes-title'>
           <FontAwesomeIcon icon={faCog} />
-          <p><u>SETTINGS</u></p>
+          <p>SETTINGS</p>
         </div>
-        <a className='user-nav-menu-link' href="/#" onClick={() => this.props.setLinkList('settings')}>
-          Settings
-        </a>
+        <div className='user-nav-boxes-link'>
+          <a className='user-nav-menu-link' href="/#" onClick={() => this.props.setLinkList('settings')}>
+            Settings
+          </a>
+        </div>
       </div>
       <div className='user-nav-menu-boxes'>
-        <p><u>FORECAST</u></p>
-        <a className='user-nav-menu-link' href='/#' onClick={() => this.props.setLinkList('forecast')}>
-          Forecast
-        </a>
+        <div className='user-nav-boxes-title'>
+          <FontAwesomeIcon icon={faCoins} />
+          <p>FORECAST</p>
+        </div>
+        <div className='user-nav-boxes-link'>
+          <a className='user-nav-menu-link' href='/#' onClick={() => this.props.setLinkList('forecast')}>
+            Forecast
+          </a>
+        </div>
       </div>
     </div>
   }

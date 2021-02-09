@@ -49,17 +49,65 @@
 
 /* ----------------- NavbarMailingPopup --------------- */
 
-#navbar-mailing-popup {
-    z-index: 1;
-    position: absolute;
-    top: 50px;
-    left: 500px;
-    height: 500px;
-    width: 500px;
-    border: 1px solid black;
-    background-color: rgb(252, 252, 252);
-}
+/*#navbar-mailing-popup {*/
+/*    z-index: 1;*/
+/*    position: absolute;*/
+/*    top: 50px;*/
+/*    left: 500px;*/
+/*    height: 500px;*/
+/*    width: 500px;*/
+/*    border: 1px solid black;*/
+/*    background-color: rgb(252, 252, 252);*/
+/*}*/
 
 #navbar-mailing-popup-hide {
     display: none;
+}
+
+#navbar-mailing-popup {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    background-color: rgb(252, 252, 252);
+    border: 1px solid rgba(68, 122, 145, 0.2);
+    box-shadow: 7px 7px 5px rgba(68, 122, 145, 0.9);
+    border-radius: 10px 10px 10px ;
+    position: absolute;
+    top: 250px;
+    left: 35%;
+}
+
+.userPage-button {
+    justify-content: end;
+    width: 25px;
+    background-color: #73a9c2;
+    color: white;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px rgba(90, 115, 153, 0.6);
+    margin: 10px;
+}
+
+#button-box {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#NavbarPopupTextarea {
+    height: 200px;
+    margin: 10px;
+    border-radius: 10px;
+}
+.NavbarPopupTitle {
+    color: #487b96;
+    margin: 10px;
+}
+
+#NavbarPopupButton {
+    margin: 10px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #73a9c2;
+    box-shadow: 3px 3px 6px rgba(90, 115, 153, 0.6);
+    color: white;
 }

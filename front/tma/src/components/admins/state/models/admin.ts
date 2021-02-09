@@ -5,11 +5,13 @@ import { DataProject } from  "../../index";
 
 export interface DataProjectState {
   dataProject: DataProject,
+  linkList: string,
 }
 
 export const admin = createModel({
   state: {
     dataProject: {},
+    linkList: '',
   } as DataProjectState,
   reducers: {
     updateDataProject: (state: DataProjectState, payload: DataProject ): DataProjectState => {
@@ -22,7 +24,8 @@ export const admin = createModel({
         ...state,
         dataProject,
       };
-    }
+    },
+    setLinkList: (state: DataProjectState, payload: string ): DataProjectState => ({...state, linkList: payload}),
   },
   effects: {
       async addDataProject(state): Promise<void> {

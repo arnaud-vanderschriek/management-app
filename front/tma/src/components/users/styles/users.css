@@ -9,20 +9,22 @@
 #user-nav-menu {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 300px;
   background-color: #18202c;
 }
 
 .user-nav-menu-boxes {
-  margin-left: 25px;
+ text-align: start;
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
+  height: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .user-nav-boxes-title {
   display: flex;
+  margin-left: 20px;
   align-items: center;
 }
 
@@ -30,11 +32,34 @@
   margin-left: 10px;
 }
 
+.user-nav-boxes-link:hover {
+  background-color: #232f3e;
+  color: #3cc9cd;
+}
+
+.user-nav-boxes-link {
+  display: flex;
+  padding-left: 20px;
+  /*vertical-align: center;*/
+  height: 30px;
+  align-items: center;
+}
+
 .user-nav-menu-link {
-  color: white;
   text-decoration: none;
   margin-left: 25px;
+  color: #a4a4a4;
+  width: 100%;
 }
+
+.user-nav-menu-link:hover {
+  color: #3cc9cd;
+}
+
+.user-nav-menu-link:active {
+  color: #3cc9cd;
+}
+
 
 #userProjectSelection {
     display: flex;

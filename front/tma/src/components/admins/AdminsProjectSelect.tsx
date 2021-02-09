@@ -5,7 +5,7 @@ interface Props {
   tab: Tab[],
 }
 
-export class AdminPageSelect extends React.Component<Props> {
+export class AdminsProjectSelect extends React.Component<Props> {
   render() {
     console.log(this.props.tab, 'tableau');
     
@@ -17,4 +17,4 @@ export class AdminPageSelect extends React.Component<Props> {
   }
 }
 
-export default AdminPageSelect;
+export default AdminsProjectSelect;

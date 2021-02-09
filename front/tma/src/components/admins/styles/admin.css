@@ -1,3 +1,19 @@
+#admins-page-container {
+    display: flex;
+    flex-direction: row;
+    /* Changer le height avec le calc => pas pro */
+    height: calc(100vh - 16.6%);
+    width: 100%;
+}
+
+#admin-page-display {
+    display: flex;
+    flex-direction: column;
+    /* position: relative;
+    top: 50px; */
+    width: 100%;
+}
+
 #admin-project {
     display: flex;
     flex-direction: column;
@@ -25,3 +41,63 @@
 .admin-project-label {
     margin-top: 25px;
 }
+
+/*   ------ ADMIN NAVIGATION MENU ----------    */
+
+#admins-nav-menu {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-between;*/
+    width: 300px;
+    background-color: #18202c;
+}
+
+.admins-nav-menu-boxes {
+    text-align: start;
+    margin: 0;
+    color: #ffffff;
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admins-nav-boxes-title {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.admins-nav-boxes-title p {
+    margin-left: 10px;
+}
+
+.admins-nav-boxes-link:hover {
+    background-color: #232f3e;
+}
+
+.admins-nav-boxes-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    height: 30px;
+}
+
+.admins-nav-menu-link {
+    color: #a4a4a4;
+    text-decoration: none;
+    margin-left: 25px;
+    align-items: center;
+}
+
+.admins-nav-menu-link:hover {
+    color: #3cc9cd;
+}
+
+.admins-nav-menu-link:active {
+    color: #3cc9cd;
+}
+
+/*    ------- ADMIN NAVIGATION MENU END -----    */
+
+/*    ------- ADMIN POPUP --------- */
+

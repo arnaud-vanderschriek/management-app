@@ -1,9 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import { DataProject } from ".";
-import { RootState } from "../state/store";
-import AdminPageSelect from './AdminPageSelect';
-import './styles/admin.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import { RootDispatch, RootState } from '../state/store';
+import AdminsProjectSelect from './AdminsProjectSelect';
+import { DataProject } from './index';
 
 interface Props {
   updateDataProject: (payload: DataProject) => void,
@@ -18,7 +17,7 @@ interface State {
   endDate: string,
 }
 
-export class Admin extends React.Component<Props, State> {
+export class AdminsProject extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -35,7 +34,6 @@ export class Admin extends React.Component<Props, State> {
     const state: State = {...this.state};
     state[field] = value;
     this.setState(state);
-    console.log(state);
   }
 
   send = () => {
@@ -44,18 +42,17 @@ export class Admin extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.state,"ezrerezrez")
     return (
-      <div id="admin-project">
+      <div id='admin-page-display'>
         <div id="admin-project-name">
           <label className="admin-project-label">Project name: </label>
-          <input 
-            type="text" 
-            name="projectName" 
+          <input
+            type="text"
+            name="projectName"
             onChange={(e) => this.setDataProject('projectName', (e.target as HTMLInputElement).value)} />
           <label className="admin-project-label">Project code: </label>
           <select onChange={(e) => this.setDataProject('projectCode', (e.target as unknown as HTMLInputElement).value )}>
-            <AdminPageSelect tab={[
+            <AdminsProjectSelect tab={[
               {value: '-- options --'},
               {value: 'A1'},
               {value: 'M3'},
@@ -66,17 +63,15 @@ export class Admin extends React.Component<Props, State> {
             ]} />
           </select>
           <label className="admin-project-label">month:</label>
-          <input type="month" onChange={(e) => this.setDataProject('month', (e.target as unknown as HTMLInputElement).value )}/>
+          <input type="month" onChange={(e) =>
+            this.setDataProject('month', (e.target as unknown as HTMLInputElement).value )}/>
           <label className="admin-project-label">start date:</label>
-          <input type="date" id='' name="calendar" onChange={(e) => this.setDataProject('startDate', (e.target as unknown as HTMLInputElement).value )}/>
+          <input type="date" id='' name="calendar" onChange={(e) =>
+            this.setDataProject('startDate', (e.target as unknown as HTMLInputElement).value )}/>
           <label className="admin-project-label">end date:</label>
-          <input type="date" onChange={(e) => this.setDataProject('endDate', (e.target as unknown as HTMLInputElement).value )} />
+          <input type="date" onChange={(e) =>
+            this.setDataProject('endDate', (e.target as unknown as HTMLInputElement).value )} />
           <button type="submit" onClick={this.send}>enregistrer</button>
-        </div>
-        {/* <div id="admin-project-dates">
-         
-        </div> */}
-        <div>
         </div>
       </div>
     )
@@ -84,12 +79,12 @@ export class Admin extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState) => ({
-    token: state.auth.token
+  token: state.auth.token
 })
 
-const mapDispatch = (dispatch: any) => ({
+const mapDispatch = (dispatch: RootDispatch) => ({
   updateDataProject: dispatch.admin.updateDataProject,
   addDataProject: dispatch.admin.addDataProject,
 })
 
-export default connect(mapState, mapDispatch)(Admin);
+export default connect(mapState, mapDispatch)(AdminsProject)

@@ -43,31 +43,35 @@ export class LoginForm extends React.Component<Props,State> {
 
   render() {
     return (
-      <form id="login-form">
-        <div id="login-form-header">
-          <h2 id="login-form-header-title">connexion</h2>
+      <div id='login-page'>
+        <div id='login-box-img'>
+          {/*<img  id='login-img' src='../../assets/images/iceland-2111810_1920.jpg' />*/}
         </div>
-        <div id="login-form-body">
-          <label className="login-form-label" htmlFor="username">username</label>
-          <div className="login-form-input-box">
-            <input 
-              className="login-form-input"
-              type="text" 
-              defaultValue={this.state.username}
-              onChange={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
-            </input>
+        <form id="login-form">
+          <div id="login-form-header">
+            <h2 id="login-form-header-title">connexion</h2>
           </div>
-          <label className="login-form-label" htmlFor="password">password</label>
-          <div className="login-form-input-box">
-            <input 
-              className="login-form-input"
-              type="password" 
-              defaultValue={this.state.password}
-              onChange={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
-            </input>
+          <div id="login-form-body">
+            <label className="login-form-label" htmlFor="username">username</label>
+            <div className="login-form-input-box">
+              <input
+                className="login-form-input"
+                type="text"
+                defaultValue={this.state.username}
+                onChange={(e) => this.handleOnChange('username', (e.target as HTMLInputElement).value)}>
+              </input>
+            </div>
+            <label className="login-form-label" htmlFor="password">password</label>
+            <div className="login-form-input-box">
+              <input
+                className="login-form-input"
+                type="password"
+                defaultValue={this.state.password}
+                onChange={(e) => this.handleOnChange('password', (e.target as HTMLInputElement).value)}>
+              </input>
+            </div>
           </div>
-        </div>
-        <div id="login-form-footer">
+          <div id="login-form-footer">
             <div id="login-form-footer-link">
               <a href="./"><p>déja enregistré ?</p></a>
               <a href="./"><p>mot de passe oublié ?</p></a>
@@ -75,8 +79,9 @@ export class LoginForm extends React.Component<Props,State> {
             <div id="login-form-footer-button-box">
               <button id="login-form-submit-button" onClick={(event) =>this.handleClick(event as unknown as MouseEvent)}>connexion</button>
             </div>
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
     )
   }
 }
