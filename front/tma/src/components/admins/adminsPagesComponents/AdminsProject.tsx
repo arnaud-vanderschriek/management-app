@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RootDispatch, RootState } from '../state/store';
+import { RootDispatch, RootState } from '../../state/store';
 import AdminsProjectSelect from './AdminsProjectSelect';
-import { DataProject } from './index';
+import { DataProject } from '../index';
 
 interface Props {
   updateDataProject: (payload: DataProject) => void,

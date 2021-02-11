@@ -1,5 +1,5 @@
 import React from "react";
-import { Tab } from "./index";
+import { Tab } from "../index";
 
 interface Props {
   tab: Tab[],

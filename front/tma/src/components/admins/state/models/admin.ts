@@ -1,18 +1,20 @@
 import { createModel } from "@rematch/core";
 import { Toastify } from "../../../helpers/Toastify";
 import { apiService } from "../../../http/service";
-import { DataProject } from  "../../index";
+import { DataProject, UsersList } from "../../index";
 
 export interface DataProjectState {
   dataProject: DataProject,
   linkList: string,
+  usersList: UsersList[],
 }
 
 export const admin = createModel({
   state: {
     dataProject: {},
     linkList: '',
-  } as DataProjectState,
+    usersList: [],
+  },
   reducers: {
     updateDataProject: (state: DataProjectState, payload: DataProject ): DataProjectState => {
       let dataProject = {
@@ -26,13 +28,23 @@ export const admin = createModel({
       };
     },
     setLinkList: (state: DataProjectState, payload: string ): DataProjectState => ({...state, linkList: payload}),
+    setUsersList: (state: DataProjectState, payload: UsersList[]): DataProjectState => ({...state, usersList: payload})
   },
   effects: {
+    async fetchUsers(): Promise<void> {
+      try {
+       const data = await apiService.get('/users/getUsers')
+        console.log(data, ': data from fetchUsers');
+        this.setUsersList(data.data)
+      } catch (err) {
+        (new Toastify()).error('impossible de fetch les users')
+      }
+    },
       async addDataProject(state): Promise<void> {
         console.log(admin.state.dataProject)
         try {
-          console.log("je rentre dans ton cul", state)
           await apiService.post('/users/dataProject', state)
+
         }catch (err) {
           (new Toastify()).error('hein hein, vous n avez pas rentrer le mot de magique')
         }

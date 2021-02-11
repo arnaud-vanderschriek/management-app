@@ -22,7 +22,6 @@ export class NavbarMailingPopup extends React.Component<Props> {
         </div>
         {this.props.list.status === 'admin' ? <p>Message from users</p> : <p>Message from Admin</p>}
         <div id='admin-message'>
-
         </div>
         <div className='NavbarPopupTitle'>
           <h4>message to send</h4>

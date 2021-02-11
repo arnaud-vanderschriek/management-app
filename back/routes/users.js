@@ -65,4 +65,18 @@ users.post('/dataProject', (req, res) => {
   })
 })
 
+users.get('/getUsers', (req, res) => {
+  connexion.query(`SELECT * FROM users WHERE status = 'user'`, (err, resultat) => {
+    if(err) res.json('error to fetch users')
+    else {
+      res.json(resultat)
+    }
+  })
+})
+// connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}'
+//     AND (status='user' OR status='admin')`, (err, resultat) => {
+//   if (err) res.json('login error')
+//   else {
+//     if( resultat[0] && resultat[0].password === req.body.password) {
+//       const token = generateToken();
 module.exports = users;

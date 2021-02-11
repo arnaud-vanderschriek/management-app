@@ -1,16 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import AdminsForecast from './AdminsForecast';
-import { AdminsProject } from './AdminsProject';
-import AdminsUsers from './AdminsUsers';
-import AdminsUsersTimesheet from './AdminsUsersTimesheet';
-import AdminsSettings from './AdminsSettings';
-import './styles/admin.css';
 import { RootDispatch, RootState } from '../state/store';
-import { DataProject } from './index';
+import { DataProject, UsersList } from './index';
+import AdminsForecast from './adminsPagesComponents/AdminsForecast';
+import { AdminsProject } from './adminsPagesComponents/AdminsProject';
+import AdminsUsers from './adminsPagesComponents/AdminsUsers';
+import AdminsUsersTimesheet from './adminsPagesComponents/AdminsUsersTimesheet';
+import AdminsSettings from './adminsPagesComponents/AdminsSettings';
+import AdminModifyUsers from './adminsPagesComponents/AdminModifyUsers';
+import './styles/admin.css';
 
 interface Props {
   linkList: string,
+  usersList: UsersList[],
   updateDataProject: (payload: DataProject) => void,
   addDataProject: (payload: DataProject ) => Promise<void>,
 }
@@ -18,7 +20,11 @@ interface Props {
 export class AdminsPages extends React.Component<Props> {
   render() {
     if(this.props.linkList === 'user') {
-      return <AdminsUsers />
+      return <AdminsUsers usersList={this.props.usersList} />
+    }
+
+    if(this.props.linkList === 'modify') {
+      return <AdminModifyUsers />
     }
 
     if(this.props.linkList === 'timesheet') {
@@ -38,13 +44,14 @@ export class AdminsPages extends React.Component<Props> {
     }
 
     return (
-      <AdminsUsers />
+      <AdminsUsers usersList={this.props.usersList}/>
     )
   }
 }
 
 const mapState = (state: RootState) => ({
   linkList: state.admin.linkList,
+  usersList: state.admin.usersList
 })
 
 const mapDispatch = (dispatch: RootDispatch) => ({
