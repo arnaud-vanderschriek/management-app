@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import React from "react";
 import { RootState } from "../state/store";
 import { UserLoginInterface } from "../login/index";
-import Users from "../users/UsersPageContainer";
-import NavbarContainer from "../navbar/NavbarContainer";
+import UsersPageContainer from "../users/UsersPageContainer";
+import Navbar2Container from "../navbar2/Navbar2Container";
 import AdminContainer from "../admins/AdminContainer";
 import { faRocket } from '@fortawesome/free-solid-svg-icons';
 import './styles/dashboard.css';
@@ -34,19 +34,18 @@ export class Dashboard extends React.Component<Props> {
           </div>
           <div id='header-dashboard-rightSide'>
             <h1>DashBoard</h1>
-            <NavbarContainer list={this.props.data}/>
+            <Navbar2Container  />
           </div>
         </div>
-         {this.props.data.status === 'admin' ? <AdminContainer /> : <Users />}
+         {this.props.data.status === 'admin' ? <AdminContainer /> : <UsersPageContainer />}
       </div>
     );
   }
 }
 
 const mapState = (state: RootState) => ({
-    data: state.auth.list,
+    data: state.auth.user,
     token: state.auth.token,
-    isModalOpened: state.users.isModalOpened,
 });
 
 const mapDispatch = (dispatch: any) => ({

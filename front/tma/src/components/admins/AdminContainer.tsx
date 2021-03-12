@@ -4,6 +4,7 @@ import { RootDispatch, RootState } from '../state/store';
 import AdminsPages from "./AdminsPages"
 import { AdminsNavigationMenu } from './AdminsNavigationMenu';
 import { UsersList } from './index';
+import { useEffect } from "react";
 
 interface Props {
   linkList: string,
@@ -12,21 +13,35 @@ interface Props {
   fetchUsers: () => Promise<void>,
 }
 
-export class AdminContainer extends React.Component<Props> {
-  componentDidMount() {
-    this.props.fetchUsers();
-  }
+export function AdminContainer(props: Props) {
+  // useEffect(() => {
+  //   props.fetchUsers()
+  // }, []);
 
-  render() {
-    return (
-      <div id='admins-page-container'>
-        <AdminsNavigationMenu setLinkList={this.props.setLinkList} />
-        <AdminsPages />
-      </div>
-
-    )
-  }
+  return (
+    <div>
+      {/* <AdminsNavigationMenu setLinkList={this.props.setLinkList} /> */}
+      <AdminsPages />
+    </div>
+  )
 }
+
+// export class AdminContainer extends React.Component<Props> {
+//   componentDidMount() {
+//     this.props.fetchUsers();
+//     console.log(this.props.linkList, "zaeazeazeaxxfdfs")
+//   }
+
+//   render() {
+//     return (
+//       <div id='admins-page-container'>
+//         {/* <AdminsNavigationMenu setLinkList={this.props.setLinkList} /> */}
+//         <AdminsPages />
+//       </div>
+
+//     )
+//   }
+// }
 const mapState = (state: RootState) => ({
   linkList: state.admin.linkList,
   usersList: state.admin.usersList

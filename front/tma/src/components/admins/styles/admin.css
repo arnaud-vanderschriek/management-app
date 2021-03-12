@@ -27,7 +27,7 @@
     flex-direction: column;
     height: 450px;
     width: 200px;
-    box-shadow: 5px 5px 6px rgb(123, 170, 202);
+    /* box-shadow: 5px 5px 6px rgb(123, 170, 202); */
     padding: 50px;
 }
 
@@ -105,8 +105,9 @@
 /*  -------- ADMIN USERS -------- */
 #admin-page-users {
     display: flex;
-    flex-direction: column;
-    overflow: scroll;
+    flex-wrap: nowrap;
+    /* flex-direction: column; */
+    /* overflow: scroll; */
 }
 
 #admin-page-users-form {
@@ -130,14 +131,14 @@
 /*  ---------ADMIN USERS END -----*/
 
 /* ---------ADMIN ADD USERS ------*/
-#admin-page-add-user-form {
+.admin-page-add-user-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin:20px;
     border: 5px solid white;
 }
 
-#admin-page-add-user-form input, select {
+.admin-page-add-user-form input, select {
     margin: 10px;
     width: 300px;
     display: flex;
@@ -148,11 +149,21 @@
     color: white;
 }
 
-#admin-page-add-user-form label {
+.admin-page-add-user-form label {
     margin-top: 10px;
     margin-left: 10px;
 }
 /* ---------ADMIN ADD USERS END ----*/
 
-/*    ------- ADMIN POPUP --------- */
+/* ------- ADMIN MODIFY USERS -----*/
+
+/*#admin-page-add-user-form {*/
+/*    display: block;*/
+/*}*/
+
+.admin-page-add-user-form-hide {
+    display: none;
+}
+/* ------- ADMIN MODIFY USERS END -----*/
+
 

@@ -1,16 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { RootState } from "../state/store";
+import { RootDispatch, RootState } from "../state/store";
 import { UsersForecast } from './UsersForecast';
-import { UsersInfo } from './UsersInfo';
+import  UsersInfo from './UsersInfo';
 import { UsersSettings} from './UsersSettings';
 import "./styles/users.css";
 import { UsersTimeSheet } from './UsersTimeSheet';
+import { UserDataInterface } from ".";
+import { UserLoginInterface } from "../login";
+import UsersTimeSheet2 from "./UsersTimeSheet2";
 
 interface Props {
   isModalOpened: boolean,
   linkList: string,
-  logout: () => Promise<void>,
+  user: UserLoginInterface,
+  usersData: UserDataInterface[],
+  fetchDataUser: (id: {} ) => Promise<void>,
 }
 
 export class UsersPage extends React.Component<Props> {
@@ -19,15 +24,19 @@ export class UsersPage extends React.Component<Props> {
    for(let i = 0; i < tab.lengt; i++ ) {
 
     } */
+  console.log(this.props.linkList, 'linklist des users')
+
     if (this.props.linkList === 'timesheet') {
       return (
-        <UsersTimeSheet isModalOpened={this.props.isModalOpened} linkList={this.props.linkList}
-                        logout={this.props.logout} />)
+        <UsersTimeSheet2 />)
+        // <UsersTimeSheet isModalOpened={this.props.isModalOpened} linkList={this.props.linkList} />)
 
     }
     if (this.props.linkList === 'info') {
       return (
-        <UsersInfo />
+        <UsersInfo user={this.props.user} userData={this.props.usersData} fetchDataUser={this.props.fetchDataUser}
+         
+        />
       )
     }
 
@@ -43,17 +52,18 @@ export class UsersPage extends React.Component<Props> {
     }
 
     return (
-      <UsersInfo />
+      <UsersInfo user={this.props.user} userData={this.props.usersData} fetchDataUser={this.props.fetchDataUser}/>
     )
   }
 }
 
 const mapState = (state: RootState) => ({
-  linkList: state.users.linkList
+  // user: state.auth.user,
+  // usersData: state.users.usersData,
 })
 
-const mapDispatch = (dispatch: any) => ({
-    logout: dispatch.auth.logout,
+const mapDispatch = (dispatch: RootDispatch) => ({
+  
 })
 
 export default connect(mapState, mapDispatch)(UsersPage);

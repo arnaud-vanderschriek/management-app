@@ -17,6 +17,39 @@ interface Props {
   addDataProject: (payload: DataProject ) => Promise<void>,
 }
 
+// export function AdminsPages(props: Props) {
+//   console.log(props.linkList, 'linklisté"&é"')
+
+//   if(props.linkList === 'user') {
+//     return <AdminsUsers usersList={props.usersList} />
+//   }
+    
+//   if(props.linkList === 'modify') {
+//     return <AdminModifyUsers />
+//   }
+
+//   if(props.linkList === 'timesheet') {
+//     return <AdminsUsersTimesheet />
+//   }
+
+//   if(props.linkList === 'forecast') {
+//     return <AdminsForecast />
+//   }
+
+//   if(props.linkList === 'project') {
+//     return <AdminsProject addDataProject={props.addDataProject} updateDataProject={props.updateDataProject} />
+//   }
+
+//   if(props.linkList === 'settings') {
+//     return <AdminsSettings />
+//   }
+
+//   return (
+//     <AdminsUsers usersList={props.usersList}/>
+//   )
+// }
+
+
 export class AdminsPages extends React.Component<Props> {
   render() {
     if(this.props.linkList === 'user') {
@@ -50,7 +83,7 @@ export class AdminsPages extends React.Component<Props> {
 }
 
 const mapState = (state: RootState) => ({
-  linkList: state.admin.linkList,
+  linkList: state.users.linkList,
   usersList: state.admin.usersList
 })
 

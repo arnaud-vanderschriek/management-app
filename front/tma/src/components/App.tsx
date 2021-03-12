@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import  LoginGuard  from './login/LoginGuard';
 import  LoginForm  from './login/LoginForm';
 import './styles/App.css';
-import  Dashboard from './dashboard/Dashboard';
+import  Dashboard from './dashboard2/Dashboard2';
 
 export class App extends React.Component {
   render() {

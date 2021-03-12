@@ -45,7 +45,7 @@ export class LoginForm extends React.Component<Props,State> {
     return (
       <div id='login-page'>
         <div id='login-box-img'>
-          {/*<img  id='login-img' src='../../assets/images/iceland-2111810_1920.jpg' />*/}
+          {/* <img  id='login-img' src='../../assets/images/iceland-2111810_1920.jpg' /> */}
         </div>
         <form id="login-form">
           <div id="login-form-header">

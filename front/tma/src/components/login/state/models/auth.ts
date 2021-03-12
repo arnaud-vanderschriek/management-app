@@ -12,18 +12,18 @@ export interface UserAuthenticationDto {
 type AuthState = {
   token: string | null,
   isVerifiedToken: boolean,
-  list: UserLoginInterface,
+  user: UserLoginInterface,
 };
 
 export const auth = createModel({
   state: {
     token: null,
     isVerifiedToken: false,
-    list: {} as UserLoginInterface,
+    user: {} as UserLoginInterface,
   },
   reducers: {
     updateToken: (state: AuthState, payload: string): AuthState => ({ ...state, token: payload }),
-    updateUser: (state: AuthState, list: UserLoginInterface): AuthState => ({...state, list }),
+    updateUser: (state: AuthState, user: UserLoginInterface): AuthState => ({...state, user }),
     setIsVerifiedToken: (state: AuthState, payload: boolean): AuthState => ({ ...state, isVerifiedToken: payload }),
     clearToken: (state: AuthState): AuthState => ({ ...state, token: null }),
   },

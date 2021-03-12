@@ -33,9 +33,10 @@ export const admin = createModel({
   effects: {
     async fetchUsers(): Promise<void> {
       try {
-       const data = await apiService.get('/users/getUsers')
+       const data = await apiService.get('/users/getAllUsers')
         console.log(data, ': data from fetchUsers');
         this.setUsersList(data.data)
+          
       } catch (err) {
         (new Toastify()).error('impossible de fetch les users')
       }
@@ -47,6 +48,15 @@ export const admin = createModel({
 
         }catch (err) {
           (new Toastify()).error('hein hein, vous n avez pas rentrer le mot de magique')
+        }
+      },
+      async sendDataForUserContract(state): Promise<void> { 
+        console.log("hebentoi")
+        try {
+          await apiService.post('/users/addUsers', state)
+
+        }catch (err) {
+          (new Toastify()).error('impossible to send data')
         }
       }
   }   

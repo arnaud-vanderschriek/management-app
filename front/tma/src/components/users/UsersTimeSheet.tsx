@@ -7,7 +7,6 @@ import UsersPagePopup from './UsersPagePopup';
 interface Props {
   isModalOpened: boolean,
   linkList: string,
-  logout: () => Promise<void>,
 }
 
 export class UsersTimeSheet extends React.Component<Props> {
@@ -28,6 +27,7 @@ export class UsersTimeSheet extends React.Component<Props> {
             <th className="project-select-input">Sat</th>
             <th className="project-select-input">Sun</th>
             <th className="project-select-input">Commentary</th>
+            <th className="project-select-input">Send</th>
           </tr>
           </thead>
           <tbody className="content-table companies-table">
