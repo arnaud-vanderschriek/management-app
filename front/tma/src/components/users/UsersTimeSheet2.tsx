@@ -21,6 +21,8 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import clsx from 'clsx';
 import TextField from '@material-ui/core/TextField';
+import { useInput, useCheck } from '../helpers/genericInputs/inputHooks';
+// import "../helpers/genericInputs/inputHooks"
 
 const useRowStyles = makeStyles({
   root: {
@@ -86,6 +88,39 @@ function Row(props: any) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
+  // -------------------------------------------------
+  
+  
+  const { value: Project, bind: bindProject, reset: resetBinProject} = useInput('')
+  const { value: Task, bind: bindTask, reset: resetBinTask} = useInput('')
+  const { value: Bill, bind: bindBill, reset: resetBinBill} = useCheck(false)
+  const { value: Mon, bind: bindMon, reset: resetBindMon } = useInput('');
+  const { value: Tue, bind: bindTue, reset: resetBindTue } = useInput('');
+  const { value: Wed, bind: bindWed, reset: resetBindWed } = useInput('');
+  const { value: Thu, bind: bindThu, reset: resetBindThu } = useInput('');
+  const { value: Fri, bind: bindFri, reset: resetBindFri } = useInput('');
+  const { value: Sat, bind: bindSat, reset: resetBindSat } = useInput('');
+  const { value: Sun, bind: bindSun, reset: resetBindSun } = useInput('');
+
+
+
+// -----------------------------------------------------
+  // const [inputValues, setInputValues] = useState({
+  //   project: '', task: '', bill: false, Mon: '', Tue: '', 
+  // });
+
+  // const handleOnChange = (event: any, param: string) => {
+  //   const { value } = event.target;
+
+  //   setInputValues({ ...inputValues, [param]: value });
+  //   console.log({...inputValues})
+  // };
+
+  // useEffect(() => {
+  //   setInputValues({...inputValues, [param]: value })
+  // }, [inputValues])
+  
+
   // setTimesheet = (field: "project" | "task" | "Lun" | "Ma" | "Mer" | "Jeu" | "Ven" | "Sat" | "Sun", value: string) => {
   //   const state: State = {...this.state};   
   //   state[field] = value;
@@ -111,10 +146,11 @@ function Row(props: any) {
         <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            // onClick={(e) => setTimesheet('project',(e.target as HTMLInputElement).value)}
+            // id="demo-simple-select"
+            // onClick={(event) => handleOnChange(event, 'project')}
             // value
             // onChange={handleChange}
+            {...bindProject}
           >
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
@@ -125,11 +161,13 @@ function Row(props: any) {
         <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            // onClick={(e) => setTimesheet('project',(e.target as HTMLInputElement).value)}
+            // id="demo-simple-select"
+            // onClick={(event) => handleOnChange(event, 'task')}
+
 
             // value
             // onChange={handleChange}
+            {...bindTask}
           >
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
@@ -144,50 +182,73 @@ function Row(props: any) {
           checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
           icon={<span className={classes.icon} />}
           inputProps={{ 'aria-label': 'decorative checkbox' }}
-          {...props}
+          // {...props}
+          {...bindBill}
         />
         </TableCell>
         <TableCell>
           <TextField 
             required 
-            id="standard-size-small" 
+            // id="standard-size-small" 
             label="Required" 
-            // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)}
+            // onChange={(event) => setInputValues(event)}
+            {...bindMon}
           />
         </TableCell>
         <TableCell>
           <TextField 
           required 
-          id="standard-size-small" 
+          // id="standard-size-small" 
           label="Required" 
-          // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)} 
+          {...bindTue}
+
           />
         </TableCell>
         <TableCell>
-        <TextField required id="standard-size-small" label="Required" 
-        // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)} 
+        <TextField 
+        required 
+        // id="standard-size-small" 
+        label="Required" 
+        {...bindWed}
+
         />
         </TableCell>
         <TableCell>
-        <TextField required id="standard-size-small" label="Required" 
-        // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)}
+        <TextField 
+        required 
+        // id="standard-size-small" 
+        label="Required" 
+        {...bindThu}
+
         />
 
         </TableCell>
         <TableCell>
-        <TextField required id="standard-size-small" label="Required" 
-        // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)}
+        <TextField 
+        required 
+        // id="standard-size-small" 
+        label="Required" 
+        {...bindFri}
+
         />
 
         </TableCell>
         <TableCell>
-        <TextField required id="standard-size-small" label="Required" 
-        // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)}
+        <TextField 
+        required 
+        // id="standard-size-small" 
+        label="Required" 
+        {...bindSat}
+
         />
         </TableCell>
         <TableCell>
-        <TextField required id="standard-size-small" label="Required" 
-        // onChange={(e) => this.setTimesheet('Lun',(e.target as HTMLInputElement).value)} 
+        <TextField 
+        required 
+        // id="standard-size-small" 
+        label="Required" 
+        {...bindSun}
+
         />
         </TableCell>
         <TableCell>

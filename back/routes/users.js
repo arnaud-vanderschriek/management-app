@@ -111,6 +111,12 @@ users.get('/getAllUsers', (req, res) => {
     }
   })
 })
+
+
+users.post('/timesheet', (req, res) => {
+  connexion.query('INSERT INTO timesheet (')
+})
+
 // connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}'
 //     AND (status='user' OR status='admin')`, (err, resultat) => {
 //   if (err) res.json('login error')

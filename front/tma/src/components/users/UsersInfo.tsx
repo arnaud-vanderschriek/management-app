@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+import { Form, FormGroup, Input, Label } from 'reactstrap';
 import { UserDataInterface } from '.';
 import { UserLoginInterface } from '../login';
 

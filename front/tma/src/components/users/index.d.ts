@@ -23,3 +23,16 @@ export interface Array {
     email: string,
     organisation: string,
 }
+
+export interface TimeSheetDataInterface {
+  Project: string,
+  Task: string,
+  Bill: boolean,
+  Mon: string,
+  Tue: string,
+  Wed: string,
+  Thu: string,
+  Fri: string,
+  Sat: string,
+  Sun: string,
+}

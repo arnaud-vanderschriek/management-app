@@ -21,10 +21,11 @@ export type RootDispatch = typeof store.dispatch;
 declare module 'react-redux' {
     interface Connect {
       // eslint-disable-next-line camelcase
-      <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
-        mapStateToProps: null | undefined,
-        mapDispatchToProps: (dispatch: RootDispatch) => TDispatchProps,
-      ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+      
+      // <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
+      //   mapStateToProps: null | undefined,
+      //   mapDispatchToProps: (dispatch: RootDispatch) => TDispatchProps,
+      // ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
   
       <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,

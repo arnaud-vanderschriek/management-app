@@ -4,7 +4,6 @@ import {faCog} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from "react";
 import { connect } from 'react-redux';
-import { RootState } from '../state/store';
 
 interface Props {
   setLinkList: (data: string) => void,

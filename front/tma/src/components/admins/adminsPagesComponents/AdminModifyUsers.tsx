@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import '../styles/admin.css';
 import { connect } from 'react-redux';
 import { RootDispatch, RootState } from '../../state/store';

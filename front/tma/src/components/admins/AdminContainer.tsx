@@ -2,9 +2,7 @@ import React from "react"
 import { connect } from 'react-redux';
 import { RootDispatch, RootState } from '../state/store';
 import AdminsPages from "./AdminsPages"
-import { AdminsNavigationMenu } from './AdminsNavigationMenu';
 import { UsersList } from './index';
-import { useEffect } from "react";
 
 interface Props {
   linkList: string,

@@ -14,7 +14,7 @@ import {
   DropdownToggle, 
   DropdownMenu, 
   DropdownItem, 
-  NavbarText, 
+
   Button
 } from "reactstrap";
 import { UserLoginInterface } from "../login";
