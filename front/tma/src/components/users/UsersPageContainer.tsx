@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { RootDispatch, RootState } from "../state/store";
-import {UsersPage} from "./UsersPage";
+import { UsersPage } from "./UsersPage";
 import { UserLoginInterface } from '../login/index';
 import { TimeSheetDataInterface, UserDataInterface } from "./index";
 
 interface Props {
   fetchDataUser: (id: {} ) => Promise<void>,
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
-  timeSheetDatas: TimeSheetDataInterface,
+  postTimeSheetDatas: () => Promise<void>,
+  // timeSheetDatas: {},
   isModalOpened: boolean,
   user: UserLoginInterface,
   usersData: UserDataInterface[],
@@ -28,7 +29,8 @@ export class UsersPageContainer extends React.Component<Props> {
           linkList={this.props.linkList} 
           fetchDataUser={this.props.fetchDataUser}
           setTimeSheetDatas={this.props.setTimeSheetDatas}
-          timeSheetDatas={this.props.timeSheetDatas}
+          // timeSheetDatas={this.props.timeSheetDatas}
+          postTimeSheetDatas={this.props.postTimeSheetDatas}
           />
       </div>
     )
@@ -46,6 +48,7 @@ const mapState = (state: RootState) => ({
 const mapDispatch = (dispatch: RootDispatch) => ({
   fetchDataUser: dispatch.users.fetchDataUser,
   setTimeSheetDatas: dispatch.users.setTimeSheetDatas,
+  postTimeSheetDatas: dispatch.users.postTimeSheetDatas,
 })
 
 export default connect(mapState, mapDispatch)(UsersPageContainer);

@@ -25,11 +25,12 @@ import { useInput, useCheck } from '../helpers/genericInputs/inputHooks';
 import { RootDispatch, RootState } from '../state/store';
 import { connect } from 'react-redux';
 import { TimeSheetDataInterface } from '.';
-// import "../helpers/genericInputs/inputHooks"
+import { UserLoginInterface } from '../login';
 
 interface Props {
+  userDataID: UserLoginInterface,
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
-  timeSheetDatas: TimeSheetDataInterface,
+  postTimeSheetDatas: (obj: TimeSheetDataInterface) => Promise<void>,
 }
 
 const useRowStyles = makeStyles({
@@ -91,14 +92,12 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
   };
 }
 
-function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => void) {
+function Row(props: any) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-  // -------------------------------------------------
-  
-  
+
   const { value: Project, bind: bindProject, reset: resetBinProject} = useInput('')
   const { value: Task, bind: bindTask, reset: resetBinTask} = useInput('')
   const { value: Bill, bind: bindBill, reset: resetBinBill} = useCheck(false)
@@ -111,10 +110,11 @@ function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => voi
   const { value: Sun, bind: bindSun, reset: resetBindSun } = useInput('');
 
   const handleSendTimeSheet = () => {
-    const obj = {
+    let obj = {
+      userID: props.userDataID,
       projet: Project,
       task: Task,
-      // bill: Bill,
+      bill: Bill,
       mon: Mon,
       tue: Tue,
       wed: Wed,
@@ -124,39 +124,19 @@ function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => voi
       sun: Sun, 
     }
 
-    setTimeSheetDatas(obj)
+    props.postTimeSheetDatas(obj)
+
+    resetBinProject()
+    resetBinTask()
+    resetBinBill()
+    resetBindMon()
+    resetBindTue()
+    resetBindWed()
+    resetBindThu()
+    resetBindFri()
+    resetBindSat()
+    resetBindSun()
   }
-// -----------------------------------------------------
-
-
-  // const [inputValues, setInputValues] = useState({
-  //   project: '', task: '', bill: false, Mon: '', Tue: '', 
-  // });
-
-  // const handleOnChange = (event: any, param: string) => {
-  //   const { value } = event.target;
-
-  //   setInputValues({ ...inputValues, [param]: value });
-  //   console.log({...inputValues})
-  // };
-
-  // useEffect(() => {
-  //   setInputValues({...inputValues, [param]: value })
-  // }, [inputValues])
-  
-
-  // setTimesheet = (field: "project" | "task" | "Lun" | "Ma" | "Mer" | "Jeu" | "Ven" | "Sat" | "Sun", value: string) => {
-  //   const state: State = {...this.state};   
-  //   state[field] = value;
-  //   this.setState(state)
-  //   console.log(state)
-
-  //   let pm = 4
-  //   let prestedHours = 15
-  //   let temsPleinNat = 38
-  //   console.log("rep: ",(prestedHours / temsPleinNat) * pm )
-  
-  // }
 
   return (
     <React.Fragment>
@@ -170,10 +150,7 @@ function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => voi
         <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            // id="demo-simple-select"
-            // onClick={(event) => handleOnChange(event, 'project')}
-            // value
-            // onChange={handleChange}
+  
             {...bindProject}
           >
             <MenuItem value={10}>Ten</MenuItem>
@@ -185,12 +162,7 @@ function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => voi
         <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            // id="demo-simple-select"
-            // onClick={(event) => handleOnChange(event, 'task')}
 
-
-            // value
-            // onChange={handleChange}
             {...bindTask}
           >
             <MenuItem value={10}>Ten</MenuItem>
@@ -199,80 +171,73 @@ function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => voi
           </Select>
         </TableCell>
         <TableCell>
-        <Checkbox
-          className={classes.root}
-          disableRipple
-          color="default"
-          checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-          icon={<span className={classes.icon} />}
-          inputProps={{ 'aria-label': 'decorative checkbox' }}
-          // {...props}
-          {...bindBill}
-        />
+          <Checkbox
+            className={classes.root}
+            disableRipple
+            color="default"
+            checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+            icon={<span className={classes.icon} />}
+            inputProps={{ 'aria-label': 'decorative checkbox' }}
+
+            {...bindBill}
+          />
         </TableCell>
         <TableCell>
           <TextField 
             required 
-            // id="standard-size-small" 
             label="Required" 
-            // onChange={(event) => setInputValues(event)}
+
             {...bindMon}
           />
         </TableCell>
         <TableCell>
           <TextField 
           required 
-          // id="standard-size-small" 
           label="Required" 
-          {...bindTue}
 
+          {...bindTue}
           />
         </TableCell>
         <TableCell>
         <TextField 
         required 
-        // id="standard-size-small" 
         label="Required" 
+
         {...bindWed}
-
         />
         </TableCell>
         <TableCell>
         <TextField 
         required 
-        // id="standard-size-small" 
         label="Required" 
+
         {...bindThu}
-
         />
 
         </TableCell>
         <TableCell>
         <TextField 
         required 
-        // id="standard-size-small" 
         label="Required" 
+
         {...bindFri}
-
         />
 
         </TableCell>
         <TableCell>
         <TextField 
         required 
-        // id="standard-size-small" 
         label="Required" 
+
         {...bindSat}
-
         />
         </TableCell>
         <TableCell>
         <TextField 
         required 
-        // id="standard-size-small" 
         label="Required" 
-        {...bindSun}
 
+        {...bindSun}
         />
         </TableCell>
         <TableCell>
@@ -341,6 +306,9 @@ Row.propTypes = {
     price: PropTypes.number.isRequired,
     protein: PropTypes.number.isRequired,
   }).isRequired,
+  setTimeSheetDatas: () => {},
+  postTimeSheetDatas: () => {},
+  userDataID: PropTypes.number.isRequired,
 };
 
 const rows = [
@@ -374,7 +342,7 @@ export default function UsersTimeSheet2(props: Props) {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <Row key={row.name} row={row} />
+              <Row key={row.name} row={row} postTimeSheetDatas={props.postTimeSheetDatas} userDataID={props.userDataID.id}/>
             ))}
           </TableBody>
         </Table>
@@ -382,14 +350,5 @@ export default function UsersTimeSheet2(props: Props) {
   );
 }
 
-const mapState = (state: RootState) => ({
-  timeSheetDatas: state.users.timeSheetDatas,
-})
-
-const mapDispatch = (dispatch: RootDispatch) => ({
-  setTimeSheetDatas: dispatch.users.setTimeSheetDatas,
-})
-
-connect(mapState, mapDispatch)(UsersTimeSheet2)
 
 

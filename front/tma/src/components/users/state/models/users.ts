@@ -26,7 +26,7 @@ export const users = createModel({
     },
     effects: {
       async fetchDataProject(): Promise<void> {
-        
+        // console.log(this.timeSheetDatas, 'timesheetdatas')
       },
       async fetchDataUser(dataUser): Promise<void> {
         console.log(dataUser, "id dans fetchDataUser")
@@ -39,9 +39,9 @@ export const users = createModel({
           (new Toastify()).error(`Failed to login. ${error.message}`);
         }
       },
-      async postTimeSheetDatas(timeSheetDatas): Promise<void> {
+      async postTimeSheetDatas(dataTimeSheet): Promise<void> {
         try {
-          await apiService.post('/users/timesheet', timeSheetDatas)
+          await apiService.post('/users/timesheet', dataTimeSheet)
         } catch (error) {
           (new Toastify()).error(`Failed to send timesheet datas. ${error.message}`);
         }

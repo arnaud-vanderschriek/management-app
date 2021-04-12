@@ -114,7 +114,8 @@ users.get('/getAllUsers', (req, res) => {
 
 
 users.post('/timesheet', (req, res) => {
-  connexion.query('INSERT INTO timesheet (')
+  console.log(req.body, 'timesheetdatas')
+  // connexion.query('INSERT INTO timesheet (')
 })
 
 // connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}'

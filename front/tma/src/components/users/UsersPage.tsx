@@ -14,22 +14,23 @@ interface Props {
   linkList: string,
   user: UserLoginInterface,
   usersData: UserDataInterface[],
-  timeSheetDatas: TimeSheetDataInterface,
+  postTimeSheetDatas: () => Promise<void>,
+  // timeSheetDatas: {},
   fetchDataUser: (id: {} ) => Promise<void>,
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
 }
 
 export class UsersPage extends React.Component<Props> {
   render() {
-   /* prevoir une boucle ou un map sur tableau pour affiner le code
-   for(let i = 0; i < tab.lengt; i++ ) {
-
-    } */
   console.log(this.props.linkList, 'linklist des users')
 
     if (this.props.linkList === 'timesheet') {
       return (
-        <UsersTimeSheet2 setTimeSheetDatas={this.props.setTimeSheetDatas} timeSheetDatas={this.props.timeSheetDatas}/>)
+        <UsersTimeSheet2 
+          setTimeSheetDatas={this.props.setTimeSheetDatas} 
+          postTimeSheetDatas={this.props.postTimeSheetDatas} 
+          userDataID={this.props.user}/>
+        )
         // <UsersTimeSheet isModalOpened={this.props.isModalOpened} linkList={this.props.linkList} />)
 
     }

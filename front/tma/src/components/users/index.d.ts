@@ -27,7 +27,7 @@ export interface Array {
 export interface TimeSheetDataInterface {
   projet: string,
   task: string,
-  // bill: boolean,
+  bill: Boolean,
   mon: string,
   tue: string,
   wed: string,
