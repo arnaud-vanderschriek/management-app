@@ -22,7 +22,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import clsx from 'clsx';
 import TextField from '@material-ui/core/TextField';
 import { useInput, useCheck } from '../helpers/genericInputs/inputHooks';
+import { RootDispatch, RootState } from '../state/store';
+import { connect } from 'react-redux';
+import { TimeSheetDataInterface } from '.';
 // import "../helpers/genericInputs/inputHooks"
+
+interface Props {
+  setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
+  timeSheetDatas: TimeSheetDataInterface,
+}
 
 const useRowStyles = makeStyles({
   root: {
@@ -83,7 +91,7 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
   };
 }
 
-function Row(props: any) {
+function Row(props: any, setTimeSheetDatas: (obj: TimeSheetDataInterface) => void) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -102,9 +110,25 @@ function Row(props: any) {
   const { value: Sat, bind: bindSat, reset: resetBindSat } = useInput('');
   const { value: Sun, bind: bindSun, reset: resetBindSun } = useInput('');
 
+  const handleSendTimeSheet = () => {
+    const obj = {
+      projet: Project,
+      task: Task,
+      // bill: Bill,
+      mon: Mon,
+      tue: Tue,
+      wed: Wed,
+      thu: Thu,
+      fri: Fri,
+      sat: Sat,
+      sun: Sun, 
+    }
 
-
+    setTimeSheetDatas(obj)
+  }
 // -----------------------------------------------------
+
+
   // const [inputValues, setInputValues] = useState({
   //   project: '', task: '', bill: false, Mon: '', Tue: '', 
   // });
@@ -257,7 +281,7 @@ function Row(props: any) {
           </Button>
         </TableCell>
         <TableCell>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={() => handleSendTimeSheet()}>
             Send
         </Button>
         </TableCell>
@@ -327,7 +351,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function UsersTimeSheet2() {
+export default function UsersTimeSheet2(props: Props) {
   return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -357,3 +381,15 @@ export default function UsersTimeSheet2() {
       </TableContainer>  
   );
 }
+
+const mapState = (state: RootState) => ({
+  timeSheetDatas: state.users.timeSheetDatas,
+})
+
+const mapDispatch = (dispatch: RootDispatch) => ({
+  setTimeSheetDatas: dispatch.users.setTimeSheetDatas,
+})
+
+connect(mapState, mapDispatch)(UsersTimeSheet2)
+
+

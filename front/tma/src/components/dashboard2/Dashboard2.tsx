@@ -155,7 +155,7 @@ export function Dashboard(props: Props) {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            className={clsx(classes.menuButton, !open && classes.menuButton)}
           >
             <MenuIcon />
           </IconButton>

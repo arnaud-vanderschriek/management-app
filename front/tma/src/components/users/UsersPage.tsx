@@ -5,7 +5,7 @@ import { UsersForecast } from './UsersForecast';
 import  UsersInfo from './UsersInfo';
 import { UsersSettings} from './UsersSettings';
 import "./styles/users.css";
-import { UserDataInterface } from ".";
+import { TimeSheetDataInterface, UserDataInterface } from ".";
 import { UserLoginInterface } from "../login";
 import UsersTimeSheet2 from "./UsersTimeSheet2";
 
@@ -14,7 +14,9 @@ interface Props {
   linkList: string,
   user: UserLoginInterface,
   usersData: UserDataInterface[],
+  timeSheetDatas: TimeSheetDataInterface,
   fetchDataUser: (id: {} ) => Promise<void>,
+  setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
 }
 
 export class UsersPage extends React.Component<Props> {
@@ -27,7 +29,7 @@ export class UsersPage extends React.Component<Props> {
 
     if (this.props.linkList === 'timesheet') {
       return (
-        <UsersTimeSheet2 />)
+        <UsersTimeSheet2 setTimeSheetDatas={this.props.setTimeSheetDatas} timeSheetDatas={this.props.timeSheetDatas}/>)
         // <UsersTimeSheet isModalOpened={this.props.isModalOpened} linkList={this.props.linkList} />)
 
     }

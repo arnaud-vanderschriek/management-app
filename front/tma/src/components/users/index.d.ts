@@ -25,14 +25,14 @@ export interface Array {
 }
 
 export interface TimeSheetDataInterface {
-  Project: string,
-  Task: string,
-  Bill: boolean,
-  Mon: string,
-  Tue: string,
-  Wed: string,
-  Thu: string,
-  Fri: string,
-  Sat: string,
-  Sun: string,
+  projet: string,
+  task: string,
+  // bill: boolean,
+  mon: string,
+  tue: string,
+  wed: string,
+  thu: string,
+  fri: string,
+  sat: string,
+  sun: string,
 }
