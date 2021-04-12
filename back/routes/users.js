@@ -115,13 +115,14 @@ users.get('/getAllUsers', (req, res) => {
 
 users.post('/timesheet', (req, res) => {
   console.log(req.body, 'timesheetdatas')
-  // connexion.query('INSERT INTO timesheet (')
+  connexion.query(`INSERT INTO timesheet (project, task, Mon, Tue, Wed, Thu, Fri,  user_id)
+  VALUES ('${req.body.projet}', '${req.body.task}', '${req.body.mon}', '${req.body.tue}', '${req.body.wed}', '${req.body.thu}', '${req.body.fri}', '${req.body.userID}')`, (err, result) => {
+    if(err) res.json("impossible to insert timesheet")
+    else {
+      res.json("insert successfull")
+      // res.json(result)
+    }
+  })
 })
 
-// connexion.query(`SELECT username, password, status FROM users WHERE username='${req.body.username}'
-//     AND (status='user' OR status='admin')`, (err, resultat) => {
-//   if (err) res.json('login error')
-//   else {
-//     if( resultat[0] && resultat[0].password === req.body.password) {
-//       const token = generateToken();
 module.exports = users;
