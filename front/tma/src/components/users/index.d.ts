@@ -13,6 +13,16 @@ export interface UserDataInterface {
   end_date: string,
 }
 
+export interface UserProjectInterface {
+  id: number,
+  projectName: string,
+  projectCode: string,
+  startDate: string,
+  endDate: string,
+  month: string,
+  // idProject: number,
+}
+
 export interface Array {
     lastname: string,
     firstname: string,
@@ -36,3 +46,4 @@ export interface TimeSheetDataInterface {
   sat: string,
   sun: string,
 }
+

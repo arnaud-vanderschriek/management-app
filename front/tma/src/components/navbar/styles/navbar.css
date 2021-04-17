@@ -25,7 +25,7 @@
 
 #navbar-mail-button {
     border-style: none;
-    background: transparent;
+    /* background: transparent; */
     font-size: 20px;
     /* color: white; */
 }
@@ -37,7 +37,7 @@
 
 #navbar-logout-button {
     border-style: none;
-    background: transparent;
+    /* background: transparent; */
     font-size: 20px;
     /* color:white; */
 }

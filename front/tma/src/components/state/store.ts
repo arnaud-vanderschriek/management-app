@@ -13,6 +13,9 @@ const models = {
 
 export const store = init({
     models,
+    redux: {
+      rootReducers: { RESET_APP : () => undefined }
+    }
 });
 
 export type RootState = RematchRootState<typeof models>

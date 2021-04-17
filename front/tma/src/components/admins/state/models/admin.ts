@@ -5,7 +5,7 @@ import { DataProject, UsersList } from "../../index";
 
 export interface DataProjectState {
   dataProject: DataProject,
-  linkList: string,
+  linkList: string | null,
   usersList: UsersList[],
 }
 
@@ -28,7 +28,7 @@ export const admin = createModel({
       };
     },
     setLinkList: (state: DataProjectState, payload: string ): DataProjectState => ({...state, linkList: payload}),
-    setUsersList: (state: DataProjectState, payload: UsersList[]): DataProjectState => ({...state, usersList: payload})
+    setUsersList: (state: DataProjectState, payload: UsersList[]): DataProjectState => ({...state, usersList: payload}),
   },
   effects: {
     async fetchUsers(): Promise<void> {

@@ -3,7 +3,7 @@ import { useState } from "react";
 export const useInput = (initialValue: string) => {
   const [value, setValue] = useState(initialValue);
 
-  console.log(value, 'test');
+  console.log(value, 'generic input classic');
 
   return {
     value,
@@ -21,7 +21,7 @@ export const useInput = (initialValue: string) => {
 export const useCheck = (initialValue: Boolean) => {
   const [value, setValue] = useState(initialValue);
 
-  console.log(value, 'check');
+  console.log(value, 'generic input check');
 
   return {
     value,

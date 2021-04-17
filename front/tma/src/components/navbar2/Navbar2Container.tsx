@@ -73,7 +73,7 @@ export class Navbar2Container extends React.Component<Props> {
             </NavItem>
           </Collapse>
         </Navbar>
-        {/* <NavbarMailingPopup list={this.props.list}/> */}
+        <NavbarMailingPopup list={this.props.list}/>
       </div>
     )
   }

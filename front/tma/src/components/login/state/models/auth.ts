@@ -2,6 +2,8 @@ import { createModel } from '@rematch/core';
 import { addTokenToRequestInterceptor, apiService, clearTokenFromAxios } from '../../../http/service';
 import { Toastify } from '../../../helpers/Toastify';
 import { UserLoginInterface } from '../../index'
+import { admin, DataProjectState } from '../../../admins/state/models/admin';
+import { strict } from 'assert';
 
 export interface UserAuthenticationDto {
   email: string,
@@ -27,7 +29,7 @@ export const auth = createModel({
     setIsVerifiedToken: (state: AuthState, payload: boolean): AuthState => ({ ...state, isVerifiedToken: payload }),
     clearToken: (state: AuthState): AuthState => ({ ...state, token: null }),
   },
-  effects: {
+  effects:(dispatch) => ({
     async verifyToken(token: string) {
       try {
         addTokenToRequestInterceptor(token);
@@ -62,7 +64,8 @@ export const auth = createModel({
       await clearTokenFromAxios();
       console.log('entrée dans la fonction apres clearTokenFromAxios')
       this.clearToken();
-      localStorage.clear();
+      localStorage.clear()
+      dispatch({ type: 'RESET_APP'})
     },
-  },
+  }),
 });

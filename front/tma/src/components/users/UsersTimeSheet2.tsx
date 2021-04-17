@@ -24,13 +24,20 @@ import TextField from '@material-ui/core/TextField';
 import { useInput, useCheck } from '../helpers/genericInputs/inputHooks';
 import { RootDispatch, RootState } from '../state/store';
 import { connect } from 'react-redux';
-import { TimeSheetDataInterface } from '.';
+import { TimeSheetDataInterface, UserProjectInterface } from '.';
 import { UserLoginInterface } from '../login';
+import { useEffect } from 'react';
+import UserPagePopup from './UsersPagePopup';
+import { UsersTimeSheet } from './UsersTimeSheet';
 
 interface Props {
   userDataID: UserLoginInterface,
+  userProject: UserProjectInterface[],
+  isModalOpened: boolean,
+  setIsModalOpened: (isModalOpened: boolean) => Promise<void>
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
   postTimeSheetDatas: (obj: TimeSheetDataInterface) => Promise<void>,
+  fetchDataProject: (id: number) => Promise<void>,
 }
 
 const useRowStyles = makeStyles({
@@ -97,7 +104,6 @@ function Row(props: any) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-
   const { value: Project, bind: bindProject, reset: resetBinProject} = useInput('')
   const { value: Task, bind: bindTask, reset: resetBinTask} = useInput('')
   const { value: Bill, bind: bindBill, reset: resetBinBill} = useCheck(false)
@@ -123,7 +129,7 @@ function Row(props: any) {
       sat: Sat,
       sun: Sun, 
     }
-
+    
     props.postTimeSheetDatas(obj)
 
     resetBinProject()
@@ -148,14 +154,15 @@ function Row(props: any) {
         </TableCell>
         <TableCell component="th" scope="row">
         <InputLabel></InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-  
-            {...bindProject}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+       
+           <Select
+           labelId="demo-simple-select-label"
+ 
+           {...bindProject}
+         >
+        {props.userProject.map((elem: any) => (
+           <MenuItem value={elem}>{elem}</MenuItem>
+        ))}
           </Select>
         </TableCell>
         <TableCell>
@@ -241,7 +248,7 @@ function Row(props: any) {
         />
         </TableCell>
         <TableCell>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={() => props.setIsModalOpened(true) } >
             Popup
           </Button>
         </TableCell>
@@ -286,6 +293,7 @@ function Row(props: any) {
           </Collapse>
         </TableCell>
       </TableRow>
+      <UserPagePopup />
     </React.Fragment>
   );
 }
@@ -308,7 +316,10 @@ Row.propTypes = {
   }).isRequired,
   setTimeSheetDatas: () => {},
   postTimeSheetDatas: () => {},
+  fetchDataProject: (id: number) => Promise,
   userDataID: PropTypes.number.isRequired,
+  userProject: PropTypes.array.isRequired,
+  setIsModalOpened: () => {},
 };
 
 const rows = [
@@ -319,7 +330,16 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function UsersTimeSheet2(props: Props) {
+function UsersTimeSheet2(props: Props) {
+
+  // props.fetchDataProject(props.userDataID.id)
+  useEffect(() => {
+    
+    props.fetchDataProject(props.userDataID.id)
+    console.log('userDataID: ', props.userDataID.id)
+    // console.log('######', props.userDataID.id )
+  }, [])
+  console.log(props.userProject, "userProject")
   return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -342,13 +362,24 @@ export default function UsersTimeSheet2(props: Props) {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <Row key={row.name} row={row} postTimeSheetDatas={props.postTimeSheetDatas} userDataID={props.userDataID.id}/>
+              <Row key={row.name} row={row} postTimeSheetDatas={props.postTimeSheetDatas} userDataID={props.userDataID.idProject} 
+              userProject={props.userProject} setIsModalOpened={props.setIsModalOpened}
+              />
             ))}
           </TableBody>
         </Table>
+        <UserPagePopup />
       </TableContainer>  
   );
 }
 
+const mapState = (state: RootState) => ({
+  isModalOpened: state.users.isModalOpened,
+})
 
+const mapDispatch = (dispatch: any) => ({
+  setIsModalOpened: dispatch.users.setIsModalOpened
+})
+
+export default connect(mapState, mapDispatch)(UsersTimeSheet2);
 
