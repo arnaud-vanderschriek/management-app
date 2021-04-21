@@ -31,7 +31,7 @@ export default function UsersInfo(props: Props) {
     <div>
       <div id="userInfosOptions">
         <label>Select month</label>
-        <input type='month' value='Select month'></input>
+        <input type='month' value='2021-04'></input>
         <label>Bill</label>
         <input type='checkbox'></input>
       </div>  
@@ -47,8 +47,26 @@ export default function UsersInfo(props: Props) {
             <p>Project 6: 100% - 456hrs</p>
           </div>
         </div>
-        
-        {/* {props.userData.map((elem, index) => (
+        <ActualChart />
+      </div>
+      <div id='currentBudget'>
+        <div>
+        <h1>Current budget</h1>
+          <div>
+            <p>Budget1 - Danone: 65%</p>
+            <p>Budget2 - Coca-Cola: 59%</p>
+            <p>Budget3 - Guimbarde: 80%</p>
+            <p>Budget4 - Billy Bike: 81%</p>
+            <p>Budget5 - Nestle: 56%</p>
+            <p>Budget6 - Estaminet: 100%</p>
+          </div>
+        </div>
+        <CurrentChart />
+        </div>
+      </div>
+    )
+  }
+                /* {props.userData.map((elem, index) => (
           <Form key={index}>
             <FormGroup>
             <Label for="exampleEmail">Email</Label>
@@ -87,28 +105,7 @@ export default function UsersInfo(props: Props) {
             <Input type="file" name="file" id="exampleFile" />
           </FormGroup>
         </Form>
-      ))} */}
-    
-      <ActualChart />
-    </div>
-    <div id='currentBudget'>
-    <div>
-    <h1>Current budget</h1>
-      <div>
-        <p>Budget1 - Danone: 65%</p>
-        <p>Budget2 - Coca-Cola: 59%</p>
-        <p>Budget3 - Guimbarde: 80%</p>
-        <p>Budget4 - Billy Bike: 81%</p>
-        <p>Budget5 - Nestle: 56%</p>
-        <p>Budget6 - Estaminet: 100%</p>
-      </div>
-    </div>
-    <CurrentChart />
-    </div>
-    </div>
-    
-  )
-}
+      ))} */
 
 //  { <FormGroup>
 //             <Label for="exampleSelect">Select</Label>

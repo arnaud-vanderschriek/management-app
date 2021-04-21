@@ -1,3 +1,4 @@
+
 export interface Tab {
     value:string,
 }
@@ -8,6 +9,13 @@ export interface DataProject {
     month: string,
     startDate: string,
     endDate: string,
+    hours: string,
+    budget: string,
+    usersOnProject: UserArray[],
+}
+
+export interface UserArray {
+    value: string,
 }
 
 export interface UsersList {

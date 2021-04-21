@@ -69,7 +69,7 @@ export class AdminsPages extends React.Component<Props> {
     }
 
     if(this.props.linkList === 'project') {
-      return <AdminsProject addDataProject={this.props.addDataProject} updateDataProject={this.props.updateDataProject} />
+      return <AdminsProject addDataProject={this.props.addDataProject} updateDataProject={this.props.updateDataProject} userList={this.props.usersList}/>
     }
 
     if(this.props.linkList === 'settings') {

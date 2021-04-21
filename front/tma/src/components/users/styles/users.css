@@ -60,6 +60,9 @@
   color: #3cc9cd;
 }
 
+.inputTimeSheet {
+  width: 120px;
+}
 
 #userProjectSelection {
     display: flex;
@@ -176,7 +179,7 @@
 }
 
 #chartInfos {
-  margin-left: 100px;
+  margin-left: 140px;
 }
 
 #currentBudget {
@@ -186,5 +189,5 @@
 }
 
 #currentBudgetInfos {
-  margin-left: 100px;
+  margin-left: 120px;
 }

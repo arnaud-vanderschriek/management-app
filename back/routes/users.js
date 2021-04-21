@@ -1,7 +1,7 @@
 const connexion = require("../conf.js");
 const express = require("express");
 const jwt = require('jsonwebtoken');
-const Joi = require('joi')
+const Joi = require('joi');
 const newToken = require('../helpers/generateToken.js');
 
 let bcrypt = require('bcryptjs');
@@ -19,10 +19,13 @@ users.post('/login', (req, res) => {
       username: '',
       password: '',
       token: '',
-      status: '',
+      status: '', 
+      startDate: '',
+      endDate: '',
+      idProject: '',
   }
 
-  connexion.query(`SELECT ID, username, password, status FROM users WHERE username='${req.body.username}' 
+  connexion.query(`SELECT ID, username, password, status, start_date, end_date, id_project FROM users WHERE username='${req.body.username}' 
     AND (status='user' OR status='admin')`, (err, resultat) => {
     if (err) res.json('login error') 
     else {
@@ -39,9 +42,12 @@ users.post('/login', (req, res) => {
             user.password = resultat[0].password;  
             user.token = token;
             user.status = resultat[0].status;
-            
+            user.startDate = resultat[0].start_date;
+            user.endDate = resultat[0].end_date;
+            user.idProject = resultat[0].id_project;
+        
             res.json(user)
-            console.log(user);
+            console.log(user, 'pls');
           }
         })
       } else {
@@ -60,23 +66,65 @@ users.post('/token/verify', (req, res) => {
 
 users.post('/dataProject', (req, res) => {
   console.log("project:", req.body)
-  connexion.query(`INSERT INTO project(project_name, project_code, month, start_date, end_date) 
-  VALUES('${req.body.projectName}', '${req.body.projectCode}', '${req.body.month}', '${req.body.startDate}', '${req.body.endDate}')`, (err) => {
+  connexion.query(`INSERT INTO project(project_name, project_code, month, start_date, end_date, hours, budget) 
+  VALUES('${req.body.projectName}', '${req.body.projectCode}', '${req.body.month}', '${req.body.startDate}', '${req.body.endDate}', '${req.body.hours}', '${req.body.budget}')`, (err) => {
     if(err) res.json('impossible to insert project')
     else {
+      connexion.query(`SELECT ID FROM project WHERE project_name = '${req.body.projectName}'`, (err, result) => {
+        if(err) res.json('somethings wrong')
+        else {
+
+          for(let i = 0; i < req.body.usersOnProject.length; i ++) {
+
+            connexion.query(`SELECT ID from users WHERE firstname='${req.body.usersOnProject[i]}'`, (err, resultat) => {
+              if(err) res.json('beubeubeu')
+              else {
+                console.log(' var result dans le dernier else: ', result)
+                console.log(' var resultat dans le dernier else: ', resultat)
+                  connexion.query(`INSERT INTO projectUsers(id_project, id_user) 
+                  VALUES('${result[i].ID}', '${resultat.ID}')`, (err, lastResult) => {
+                    if(err) res.json("ceci n'a pas abouti")
+                    // else {
+                    //   res.json('yesssssay')
+                    // }
+                  })
+                }
+             
+              }
+            )
+          }
+        }
+      })
       res.json("insert successfull")
     }
   })
 })
 
-// users.get('/getUsers', (req, res) => {
-//   connexion.query(`SELECT * FROM users`, (err, resultat) => {
-//     if(err) res.json('error to fetch users')
-//     else {
-//       res.json(resultat)
-//     }
-//   })
-// })
+users.post('/getProject', (req, res) => { 
+  console.log(req.body.id,'project')
+  connexion.query(`SELECT * FROM projectUsers INNER JOIN project ON projectUsers.id_project = project.ID`, (err, result) => {
+    if(err) res.json("impossible d'associer un user a un projet")
+    else {
+      let response = []
+
+      for(let i = 0; i < result.length; i++) {
+       if(result[i].id_user === req.body.id)
+        response.push(result[i].project_name)
+      }
+      console.log(response)
+     res.json(response)
+    }
+  })
+  // connexion.query(`SELECT * FROM project WHERE ID=${req.body.id}`, (err, resultat) => {
+  //   if(err) res.json('error to fetch users')
+  //   else {
+  //     console.log(resultat, 'resultat du fetch project')
+  //     res.json(resultat)
+  //   }
+  // })
+})
+
+// SELECT * FROM projectUsers INNER JOIN project ON projectUsers.id_project = project.ID
 
 users.post('/addUsers', (req, res) => {
   console.log(req.body)
@@ -89,7 +137,6 @@ users.post('/addUsers', (req, res) => {
     }
   })
 })  
-
 
 users.post('/getUser', (req, res) => {
   console.log(req.body, "getUser")
@@ -112,11 +159,10 @@ users.get('/getAllUsers', (req, res) => {
   })
 })
 
-
 users.post('/timesheet', (req, res) => {
   console.log(req.body, 'timesheetdatas')
-  connexion.query(`INSERT INTO timesheet (project, task, Mon, Tue, Wed, Thu, Fri,  user_id)
-  VALUES ('${req.body.projet}', '${req.body.task}', '${req.body.mon}', '${req.body.tue}', '${req.body.wed}', '${req.body.thu}', '${req.body.fri}', '${req.body.userID}')`, (err, result) => {
+  connexion.query(`INSERT INTO timesheet (start_date, end_date, project, task, Mon, Tue, Wed, Thu, Fri,  user_id)
+  VALUES ('${req.body.startDate}', '${req.body.endDate}','${req.body.projet}', '${req.body.task}', '${req.body.mon}', '${req.body.tue}', '${req.body.wed}', '${req.body.thu}', '${req.body.fri}', '${req.body.userID}')`, (err, result) => {
     if(err) res.json("impossible to insert timesheet")
     else {
       res.json("insert successfull")

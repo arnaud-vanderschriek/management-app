@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const users = require("./routes/users");
+const admins = require("./routes/admins");
 
 const app = express();
 const port = 8000;
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 // app.use(express.json());
 
 app.use("/users", users);
+app.use("/admins", admins);
 
 app.listen(port, "localhost", () => {
     console.log(`listening on port ${port}`);

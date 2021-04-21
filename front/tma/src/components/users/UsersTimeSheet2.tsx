@@ -104,6 +104,8 @@ function Row(props: any) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
+  const { value: startDate, bind: bindStartDate, reset: resetStartDate } = useInput('')
+  const { value: endDate, bind: bindEndDate, reset: resetEndDate } = useInput('')
   const { value: Project, bind: bindProject, reset: resetBinProject} = useInput('')
   const { value: Task, bind: bindTask, reset: resetBinTask} = useInput('')
   const { value: Bill, bind: bindBill, reset: resetBinBill} = useCheck(false)
@@ -118,6 +120,8 @@ function Row(props: any) {
   const handleSendTimeSheet = () => {
     let obj = {
       userID: props.userDataID,
+      startDate: startDate,
+      endDate: endDate,
       projet: Project,
       task: Task,
       bill: Bill,
@@ -132,6 +136,8 @@ function Row(props: any) {
     
     props.postTimeSheetDatas(obj)
 
+    resetStartDate()
+    resetEndDate()
     resetBinProject()
     resetBinTask()
     resetBinBill()
@@ -148,21 +154,24 @@ function Row(props: any) {
     <React.Fragment>
       <TableRow className={classes.root}>
         <TableCell>
+          <input className="inputTimeSheet" type="date" {...bindStartDate}></input>
+          <input className="inputTimeSheet" type="date" {...bindEndDate}></input>
+        </TableCell>
+        {/* <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
+        </TableCell> */}
         <TableCell component="th" scope="row">
-        <InputLabel></InputLabel>
-       
-           <Select
-           labelId="demo-simple-select-label"
- 
-           {...bindProject}
-         >
-        {props.userProject.map((elem: any) => (
-           <MenuItem value={elem}>{elem}</MenuItem>
-        ))}
+          <InputLabel></InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+
+            {...bindProject} >
+
+            {props.userProject.map((elem: any) => (
+              <MenuItem value={elem}>{elem}</MenuItem>
+            ))}
           </Select>
         </TableCell>
         <TableCell>
@@ -340,6 +349,7 @@ function UsersTimeSheet2(props: Props) {
     // console.log('######', props.userDataID.id )
   }, [])
   console.log(props.userProject, "userProject")
+
   return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -369,6 +379,19 @@ function UsersTimeSheet2(props: Props) {
           </TableBody>
         </Table>
         <UserPagePopup />
+        <div>
+          <hr></hr>
+          <h5>BILLABLE TOTAL :</h5>
+          <hr></hr>
+          <h5>NON BILLABLE TOTAL:</h5>
+          <hr></hr>
+        </div>
+        <div>
+          <p>current overtime :</p>
+          <p>budget holidays left: </p>
+          <p>extra budget holidays left: </p>
+          <p>running sickness count: </p>
+        </div>
       </TableContainer>  
   );
 }

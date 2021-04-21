@@ -42,7 +42,7 @@ export const admin = createModel({
       }
     },
       async addDataProject(state): Promise<void> {
-        console.log(admin.state.dataProject)
+        console.log(state, 'serait-ce')
         try {
           await apiService.post('/users/dataProject', state)
 

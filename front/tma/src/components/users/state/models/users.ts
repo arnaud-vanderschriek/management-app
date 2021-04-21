@@ -52,6 +52,7 @@ export const users = createModel({
         }
       },
       async postTimeSheetDatas(dataTimeSheet): Promise<void> {
+        console.log('dataTimeSheet: ', dataTimeSheet)
         try {
           await apiService.post('/users/timesheet', dataTimeSheet)
         } catch (error) {

@@ -25,7 +25,7 @@
 #admin-project-name {
     display: flex;
     flex-direction: column;
-    height: 450px;
+    height: auto;
     width: 200px;
     /* box-shadow: 5px 5px 6px rgb(123, 170, 202); */
     padding: 50px;
