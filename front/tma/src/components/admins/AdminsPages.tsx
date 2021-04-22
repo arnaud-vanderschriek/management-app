@@ -9,6 +9,8 @@ import AdminsUsersTimesheet from './adminsPagesComponents/AdminsUsersTimesheet';
 import AdminsSettings from './adminsPagesComponents/AdminsSettings';
 import AdminModifyUsers from './adminsPagesComponents/AdminModifyUsers';
 import './styles/admin.css';
+import { AdminsAddUsers2 } from "./adminsPagesComponents/AdminsAddUsers2";
+import AdminsProject2 from "./adminsPagesComponents/AdminsProject2";
 
 interface Props {
   linkList: string,
@@ -57,7 +59,7 @@ export class AdminsPages extends React.Component<Props> {
     }
 
     if(this.props.linkList === 'modify') {
-      return <AdminModifyUsers />
+      return <AdminsAddUsers2 />
     }
 
     if(this.props.linkList === 'timesheet') {
@@ -69,7 +71,8 @@ export class AdminsPages extends React.Component<Props> {
     }
 
     if(this.props.linkList === 'project') {
-      return <AdminsProject addDataProject={this.props.addDataProject} updateDataProject={this.props.updateDataProject} userList={this.props.usersList}/>
+      return <AdminsProject2 />
+      // return <AdminsProject addDataProject={this.props.addDataProject} updateDataProject={this.props.updateDataProject} userList={this.props.usersList}/>
     }
 
     if(this.props.linkList === 'settings') {

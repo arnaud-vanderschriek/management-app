@@ -143,10 +143,10 @@
     width: 300px;
     display: flex;
     flex-direction: column;
-    background-color: #7BAACA;
+    /* background-color: #7BAACA; */
     border-style: none;
     border-radius: 5px;
-    color: white;
+    /* color: white; */
 }
 
 .admin-page-add-user-form label {

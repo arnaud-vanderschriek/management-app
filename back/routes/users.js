@@ -10,7 +10,7 @@ const { number } = require("joi");
 const users = express.Router();
 
 require('dotenv').config();
-
+ 
 users.use(express.json());
 
 users.post('/login', (req, res) => {
@@ -89,7 +89,6 @@ users.post('/dataProject', (req, res) => {
                     // }
                   })
                 }
-             
               }
             )
           }

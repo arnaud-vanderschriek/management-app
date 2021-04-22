@@ -5,7 +5,7 @@ import { RootDispatch, RootState } from '../../state/store';
 import Button from '@material-ui/core/Button';
 
 interface Props {
-  sendDataForUserContract: (state: State) => Promise<void>
+  sendDataForUserContract: (state: State) => Promise<void>,
 }
 
 interface State {
@@ -116,7 +116,7 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = (dispatch: RootDispatch) => ({
-  sendDataForUserContract: dispatch.admin.sendDataForUserContract
+  sendDataForUserContract: dispatch.admin.sendDataForUserContract,
 })
 
 export default connect(mapState, mapDispatch)(AdminModifyUsers);
