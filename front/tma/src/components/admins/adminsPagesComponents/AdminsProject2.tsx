@@ -1,15 +1,20 @@
-import { FormControl, InputLabel, FormHelperText, Container } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { FormControl, InputLabel, FormHelperText, Container, TextField } from "@material-ui/core";
 import Select from '@material-ui/core/Select';
-import React from "react";
 import Input from '@material-ui/core/Input';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import {
-
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { useInput } from "../../helpers/genericInputs/inputHooks";
+import { Button } from "@material-ui/core";
+import { DataProject, UsersList, WorkPackages } from "../index";
+import AdminsProjectUsersCheckBox from "./AdminsProjectUsersCheckBox";
+import AdminsProjectModals from "./AdminsProjectModals";
+import AdminsProjectWpCheckBox from "./AdminsProjectWpCheckBox";
 
 const useStyles = makeStyles((theme) => ({
+  formBox: {
+    border: 1,
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 50,
@@ -24,131 +29,243 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AdminsProject2() {
-  const classes = useStyles();
-  const [users, setUsers] = React.useState('');
 
-  const handleChange = (event: any) => {
-    setUsers(event.target.value);
-  };
+interface Props {
+  userList: UsersList[],
+  dataProject: DataProject,
+  isModalOpened: boolean,
+  updateDataProject: (payload: DataProject) => void,
+  addDataProject: (payload: DataProject ) => Promise<void>,
+  setIsModalOpened: (isModalOpened: boolean) => void,
+}
+
+interface State {
+  projectName: string,
+  projectCode: string,
+  startDate: string,
+  endDate: string,
+  hours: string,
+  budget: string,
+  usersOnProject: string[],
+  workPackagesOnProject: WorkPackages[],
+  reportingMonth: string,
+  reportingBudget: string,
+  directsCosts: string,
+  indirectsCosts: string,
+}
+
+export default function AdminsProject2(props: Props, state: State) {
+  const classes = useStyles();
+  console.log(state.usersOnProject, 'state.userOnProject de AdminsProject2')
+
+  useEffect(() => {
+    console.log(props.dataProject, 'DataProject')
+  }, [props.dataProject]);
+
+  let dataProject = {
+    projectName: '',
+    projectCode: '',
+    startDate: '',
+    endDate: '',
+    hours: '',
+    budget: '',
+    usersOnProject: [],
+    workPackagesOnProject: [],
+    reportingMonth: '',
+    reportingBudget: '',
+    directsCosts: '',
+    indirectsCosts: '',    
+  }
+
+  const { value: projectName, bind: bindProjectName, reset: resetProjectName } = useInput('')
+  const { value: projectCode, bind: bindProjectCode, reset: resetProjectCode } = useInput('')
+  const { value: startDate, bind: bindStartDate, reset: resetStartDate } = useInput('')
+  const { value: endDate, bind: bindEndDate, reset: resetEndDate } = useInput('')
+  const { value: hoursAllowed, bind: bindHoursAllowed, reset: resetHoursAllowed } = useInput('')
+  const { value: budgetAllowed, bind: bindBudgetAllowed, reset: resetBudgetAllowed } = useInput('')
+  const { value: users, bind: bindUsers, reset: resetUsers } = useInput('')
+  const { value: workPackages, bind: bindWorkPackages, reset: resetWorkPackages } = useInput('')
+  const { value: financialsReportingMonth, bind: bindFinancialsReportingMonth, reset: resetFinancialsReportingMonth } = useInput('')
+  const { value: financialsReportingBudget, bind: bindFinancialsReportingBudget, reset: resetFinancialsReportingBudget } = useInput('')
+  const { value: directsCosts, bind: bindDirectsCosts, reset: resetDirectsCosts } = useInput('')
+  const { value: indirectsCosts, bind: bindIndirectsCosts, reset: resetIndirectsCosts } = useInput('')
+
+  const defineUserOnProject = (value: string) => {
+
+  }
+
+  const showInfos = () => {
+    props.setIsModalOpened(true)
+  }
+
+  const send = () => {
+
+    dataProject = {
+      projectName: projectName,
+      projectCode: projectCode,
+      startDate: startDate,
+      endDate: endDate,
+      hours: hoursAllowed,
+      budget: budgetAllowed,
+      usersOnProject: [],
+      workPackagesOnProject: [],
+      reportingMonth: financialsReportingMonth,
+      reportingBudget: financialsReportingBudget,
+      directsCosts: directsCosts,
+      indirectsCosts: indirectsCosts,    
+    }
+
+    props.updateDataProject(dataProject);
+    props.addDataProject(dataProject);
+    
+
+    resetProjectName();
+    resetProjectCode();
+    resetStartDate();
+    resetEndDate();
+    resetHoursAllowed();
+    resetBudgetAllowed();
+    resetFinancialsReportingMonth();
+    resetFinancialsReportingBudget();
+    resetDirectsCosts();
+    resetIndirectsCosts();
+  }
 
   return(
     <Container>
       <div>
-        <div>
+        <div className={classes.formBox}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="my-input">Project Name</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" />
-            <FormHelperText id="my-helper-text"></FormHelperText>
+            <Input id="my-input" aria-describedby="my-helper-text" {...bindProjectName}/>
+            <FormHelperText id="my-helper-text">enter the project name.</FormHelperText>
           </FormControl>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="my-input">Project Code</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" />
-            <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+            <Input id="my-input" aria-describedby="my-helper-text" {...bindProjectCode}/>
+            <FormHelperText id="my-helper-text">enter the project codes.</FormHelperText>
           </FormControl>
         </div>
-       <div>
-       <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Date picker inline"
-          // value={selectedDate}
-          // onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-       {/* <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="my-input">Start Date</InputLabel>
-          <Input type='date' id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-        </FormControl> */}
+        <div className='admins-project-form'>
+          <FormControl className={classes.formControl}>
+            <TextField
+              id="datetime-local"
+              label="start date"
+              type="date"
+              defaultValue=""
+              // className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              {...bindStartDate}
+            />
+            <FormHelperText id="my-helper-text">project start date.</FormHelperText>
+
+          </FormControl>
+          <FormControl className={classes.formControl}>
+          <TextField
+            id="datetime-local"
+            label="end date"
+            type="date"
+            defaultValue=""
+            // className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            {...bindEndDate}
+          />
+            <FormHelperText id="my-helper-text">project end date.</FormHelperText>
+
+          </FormControl>
+        </div>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="my-input">End date</InputLabel>
-          <Input type='date' id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+          <InputLabel htmlFor="my-input">Allocated hours</InputLabel>
+          <Input id="my-input" aria-describedby="my-helper-text" {...bindHoursAllowed}/>
+          <FormHelperText id="my-helper-text">enter the allocated hours.</FormHelperText>
         </FormControl>
-       </div>
-       
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="my-input">Hours allowed</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+          <InputLabel htmlFor="my-input">Allocated Budget</InputLabel>
+          <Input id="my-input" aria-describedby="my-helper-text" {...bindBudgetAllowed}/>
+          <FormHelperText id="my-helper-text">enter the allocated budget.</FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="my-input">Budget allowed</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Users</InputLabel>
+        <InputLabel id="demo-simple-select-label">Participant users</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={users}
-          onChange={handleChange}
+          id="demo-simple-select" 
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <AdminsProjectUsersCheckBox 
+            userList={props.userList} 
+            updateDataProject={props.updateDataProject} 
+            
+          />
         </Select>
-        <FormHelperText id="my-helper-text">Users allowed for project.</FormHelperText>
+        <FormHelperText id="my-helper-text">enter the participant users.</FormHelperText>
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Work packages</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={users}
-          onChange={handleChange}
+          {...bindWorkPackages} 
         >
-          <MenuItem value={'wp1'}>wp1</MenuItem>
-          <MenuItem value={'wp2'}>wp2</MenuItem>
-          <MenuItem value={'wp3'}>wp3</MenuItem>
-          <MenuItem value={'wp4'}>wp4</MenuItem>
-          <MenuItem value={'wp5'}>wp5</MenuItem>
-          <MenuItem value={'wp6'}>wp6</MenuItem> 
-          <MenuItem value={'wp7'}>wp7</MenuItem>
-          <MenuItem value={'wp8'}>wp8</MenuItem> 
-          <MenuItem value={'wp9'}>wp9</MenuItem>
-          <MenuItem value={'wp10'}>wp10</MenuItem> 
-          <MenuItem value={'wp11'}>wp11</MenuItem>
-          <MenuItem value={'wp12'}>wp12</MenuItem> 
-          <MenuItem value={'wp13'}>wp13</MenuItem>
-          <MenuItem value={'wp14'}>wp14</MenuItem> 
-          <MenuItem value={'wp15'}>wp15</MenuItem>
-          <MenuItem value={'wp16'}>wp16</MenuItem> 
-          <MenuItem value={'wp17'}>wp17</MenuItem>
-          <MenuItem value={'wp18'}>wp18</MenuItem> 
-          <MenuItem value={'wp19'}>wp19</MenuItem>
-          <MenuItem value={'wp20'}>wp20</MenuItem>
+         <AdminsProjectWpCheckBox wp={[
+          { value: 'wp1'},
+          { value: 'wp2'},
+          { value: 'wp3'},
+          { value: 'wp4'},
+          { value: 'wp5'},
+          { value: 'wp6'},
+          { value: 'wp7'},
+          { value: 'wp8'},
+          { value: 'wp9'},
+          { value: 'wp10'},
+          { value: 'wp11'},
+          { value: 'wp12'},
+          { value: 'wp13'},
+          { value: 'wp14'},
+          { value: 'wp15'},
+          { value: 'wp16'},
+          { value: 'wp17'},
+          { value: 'wp18'},
+          { value: 'wp19'},
+          { value: 'wp20'}, ]} 
+        />
         </Select>
-        <FormHelperText id="my-helper-text">Work packages allowed for project.</FormHelperText>
+        <FormHelperText id="my-helper-text">Allocated work packages.</FormHelperText>
       </FormControl>
       <FormControl className={classes.formControl}>
           <InputLabel htmlFor="my-input">Financials reporting month</InputLabel>
-          <Input type='month' id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+          <Input type='month' id="my-input" aria-describedby="my-helper-text" {...bindFinancialsReportingMonth} />
+          <FormHelperText id="my-helper-text"></FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="my-input">Financials reporting budget</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
+          <Input id="my-input" aria-describedby="my-helper-text" {...bindFinancialsReportingBudget}/>
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="my-input">Directs costs</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
+          <Input id="my-input" aria-describedby="my-helper-text" {...bindDirectsCosts}/>
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="my-input">Indirects costs</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
+          <Input id="my-input" aria-describedby="my-helper-text" {...bindIndirectsCosts}/>
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
       </div>
+      <FormControl  className='formControlInfos' >
+        <Button variant="contained" color="primary"  onClick={() => showInfos()}>
+          Show infos
+        </Button>
+      </FormControl>
+      <FormControl  className='formControlBoxes' >
+        <Button variant="contained" color="primary"  onClick={() => send()}>
+          Send
+        </Button>
+      </FormControl>
+      <AdminsProjectModals isModalOpened={props.isModalOpened} setIsModalOpened={props.setIsModalOpened} state={[state]}/>
     </Container>
   )
 }

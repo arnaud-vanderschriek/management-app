@@ -22,17 +22,17 @@ export default function CurrentChart() {
         data={state}
         width={600}
         height={400}
-        options={{
-          title:{
-            display:true,
-            text:'Budget Average per month',
-            fontSize:10,
-          },
-          legend:{
-            display:true,
-            position:'right'
-          }
-        }}
+        // options={{
+        //   title:{
+        //     display:true,
+        //     text:'Budget Average per month',
+        //     fontSize:10,
+        //   },
+        //   legend:{
+        //     display:true,
+        //     position:'right'
+        //   }
+        // }}
       />
     </div>
   );

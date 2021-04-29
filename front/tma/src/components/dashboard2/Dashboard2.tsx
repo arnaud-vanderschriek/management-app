@@ -24,6 +24,7 @@ import { RootState } from '../state/store';
 import { useEffect } from 'react';
 import UsersPageContainer from '../users/UsersPageContainer';
 import AdminContainer from '../admins/AdminContainer';
+import { DataProject } from '../admins';
 
 interface Props {
   data: UserLoginInterface,

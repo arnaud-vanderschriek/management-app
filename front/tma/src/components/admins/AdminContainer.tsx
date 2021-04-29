@@ -2,47 +2,28 @@ import React from "react"
 import { connect } from 'react-redux';
 import { RootDispatch, RootState } from '../state/store';
 import AdminsPages from "./AdminsPages"
-import { UsersList } from './index';
+import { DataProject, UsersList } from './index';
 
 interface Props {
   linkList: string,
   usersList: UsersList[],
+  dataProject: DataProject,
   setLinkList: (data: string) => void,
   fetchUsers: () => Promise<void>,
 }
 
 export function AdminContainer(props: Props) {
-  // useEffect(() => {
-  //   props.fetchUsers()
-  // }, []);
-
   return (
     <div>
-      {/* <AdminsNavigationMenu setLinkList={this.props.setLinkList} /> */}
       <AdminsPages />
     </div>
   )
 }
 
-// export class AdminContainer extends React.Component<Props> {
-//   componentDidMount() {
-//     this.props.fetchUsers();
-//     console.log(this.props.linkList, "zaeazeazeaxxfdfs")
-//   }
-
-//   render() {
-//     return (
-//       <div id='admins-page-container'>
-//         {/* <AdminsNavigationMenu setLinkList={this.props.setLinkList} /> */}
-//         <AdminsPages />
-//       </div>
-
-//     )
-//   }
-// }
 const mapState = (state: RootState) => ({
   linkList: state.admin.linkList,
-  usersList: state.admin.usersList
+  usersList: state.admin.usersList,
+  dataProject: state.admin.dataProject,
 })
 
 const mapDispatch = (dispatch: RootDispatch) => ({

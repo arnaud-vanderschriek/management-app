@@ -11,7 +11,7 @@ export interface DataProjectState {
 
 export const admin = createModel({
   state: {
-    dataProject: {},
+    dataProject: {} as DataProject,
     linkList: '',
     usersList: [],
   },
@@ -29,6 +29,12 @@ export const admin = createModel({
     },
     setLinkList: (state: DataProjectState, payload: string ): DataProjectState => ({...state, linkList: payload}),
     setUsersList: (state: DataProjectState, payload: UsersList[]): DataProjectState => ({...state, usersList: payload}),
+    updateUserOnProject: (state: DataProjectState, payload: string[]): DataProjectState => {
+      return {
+        ...state,
+        dataProject: {...state.dataProject, usersOnProject: payload }
+      };
+    }
   },
   effects: {
     async fetchUsers(): Promise<void> {
@@ -44,8 +50,9 @@ export const admin = createModel({
       async addDataProject(state): Promise<void> {
         console.log(state, 'serait-ce')
         try {
-          await apiService.post('/users/dataProject', state)
+          await apiService.post('/users/dataProject', state);
 
+          (new Toastify()).info('the data has been sent')
         }catch (err) {
           (new Toastify()).error('hein hein, vous n avez pas rentrer le mot de magique')
         }

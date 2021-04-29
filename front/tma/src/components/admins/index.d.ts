@@ -6,15 +6,20 @@ export interface Tab {
 export interface DataProject {
     projectName: string,
     projectCode: string,
-    month: string,
     startDate: string,
     endDate: string,
     hours: string,
     budget: string,
-    usersOnProject: UserArray[],
+    usersOnProject: string[],
+    workPackagesOnProject: WorkPackages[],
+    directsCosts: string,
+    indirectsCosts: string,
+    reportingMonth: string,
+    reportingBudget: string,
 }
 
-export interface UserArray {
+
+export interface WorkPackages {
     value: string,
 }
 
@@ -31,4 +36,9 @@ export interface UsersList {
     idProject: number,
     token: string,
     status: string,
+    checked: boolean,
+}
+
+export interface Wp {
+    value: string,
 }

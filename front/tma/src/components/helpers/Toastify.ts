@@ -4,8 +4,9 @@ toast.configure();
 
 export class Toastify {
   private defaultConfig = {
+    position: toast.POSITION.TOP_RIGHT,
     autoClose: 2000,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
