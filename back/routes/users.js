@@ -7,6 +7,7 @@ const newToken = require('../helpers/generateToken.js');
 let bcrypt = require('bcryptjs');
 const generateToken = require("../helpers/generateToken.js");
 const { number } = require("joi");
+const { Console } = require("console");
 const users = express.Router();
 
 require('dotenv').config();
@@ -66,35 +67,39 @@ users.post('/token/verify', (req, res) => {
 
 users.post('/dataProject', (req, res) => {
   console.log("project:", req.body)
-  connexion.query(`INSERT INTO project(project_name, project_code, month, start_date, end_date, hours, budget) 
-  VALUES('${req.body.projectName}', '${req.body.projectCode}', '${req.body.month}', '${req.body.startDate}', '${req.body.endDate}', '${req.body.hours}', '${req.body.budget}')`, (err) => {
-    if(err) res.json('impossible to insert project')
+  connexion.query(`INSERT INTO project (project_name, project_code, start_date, end_date, hours, budget)
+  VALUES ('${req.body.projectName}', '${req.body.projectCode}', '${req.body.startDate}', '${req.body.endDate}', '${req.body.hours}', '${req.body.budget}')`, (err, result) => {
+    if (err) res.json('impossible to insert dataProject')
     else {
-      connexion.query(`SELECT ID FROM project WHERE project_name = '${req.body.projectName}'`, (err, result) => {
-        if(err) res.json('somethings wrong')
+      console.log(result, 'spéééééé')
+      res.json('tout est bien')
+      connexion.query(`SELECT ID from project WHERE project_name='${req.body.projectName}'`, (err, projectID) => {
+        if(err) res.json('impossible to have project id')
         else {
-
-          for(let i = 0; i < req.body.usersOnProject.length; i ++) {
-
-            connexion.query(`SELECT ID from users WHERE firstname='${req.body.usersOnProject[i]}'`, (err, resultat) => {
-              if(err) res.json('beubeubeu')
+          console.log(projectID, 'id du project')
+          console.log(req.body.usersOnProject, 'usersOnProject')
+          for(let y= 0; y < req.body.usersOnProject.length ; y++) {
+            connexion.query(`SELECT ID from users WHERE firstname='${req.body.usersOnProject[y]}'`, (err, usersID) => {
+              if (err) res.json('impossible de recupérer l id du users')
               else {
-                console.log(' var result dans le dernier else: ', result)
-                console.log(' var resultat dans le dernier else: ', resultat)
-                  connexion.query(`INSERT INTO projectUsers(id_project, id_user) 
-                  VALUES('${result[i].ID}', '${resultat.ID}')`, (err, lastResult) => {
-                    if(err) res.json("ceci n'a pas abouti")
-                    // else {
-                    //   res.json('yesssssay')
-                    // }
-                  })
-                }
+                console.log(usersID, 'id du users')
+               
+                // for(let i = 0; i < usersID.length ; i ++) {
+                //   connexion.query(`INSERT INTO projectUsers (id_project, id_user) VALUES ('${projectID[0].ID}', '${usersID[0].ID}')`, (err, projectUsersResult) => {
+                //     if (err) res.json('impossible d inserer dans projectUsers')
+                //     else {
+                //       res.json('insertion dans projectUsers reussie')
+                //       console.log('tadaaaam')
+                //     }
+                //   })
+                // }
               }
-            )
+              console.log(usersID, 'after loop')
+            })
           }
+      
         }
       })
-      res.json("insert successfull")
     }
   })
 })
