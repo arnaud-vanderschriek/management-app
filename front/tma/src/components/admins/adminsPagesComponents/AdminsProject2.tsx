@@ -3,13 +3,22 @@ import { FormControl, InputLabel, FormHelperText, Container, TextField } from "@
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useInput } from "../../helpers/genericInputs/inputHooks";
 import { Button } from "@material-ui/core";
-import { DataProject, UsersList, WorkPackages } from "../index";
+import { DataProject, UsersList } from "../index";
 import AdminsProjectUsersCheckBox from "./AdminsProjectUsersCheckBox";
 import AdminsProjectModals from "./AdminsProjectModals";
 import AdminsProjectWpCheckBox from "./AdminsProjectWpCheckBox";
+import { TramOutlined } from "@material-ui/icons";
+
+interface Props {
+  userList: UsersList[],
+  dataProject: DataProject,
+  isModalOpened: boolean,
+  updateDataProject: (payload: DataProject) => void,
+  addDataProject: (payload: DataProject ) => Promise<void>,
+  setIsModalOpened: (isModalOpened: boolean) => void,
+  resetDataProject: () => void,
+}
 
 const useStyles = makeStyles((theme) => ({
   formBox: {
@@ -30,242 +39,206 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-interface Props {
-  userList: UsersList[],
-  dataProject: DataProject,
-  isModalOpened: boolean,
-  updateDataProject: (payload: DataProject) => void,
-  addDataProject: (payload: DataProject ) => Promise<void>,
-  setIsModalOpened: (isModalOpened: boolean) => void,
-}
-
-interface State {
-  projectName: string,
-  projectCode: string,
-  startDate: string,
-  endDate: string,
-  hours: string,
-  budget: string,
-  usersOnProject: string[],
-  workPackagesOnProject: WorkPackages[],
-  reportingMonth: string,
-  reportingBudget: string,
-  directsCosts: string,
-  indirectsCosts: string,
-}
-
-export default function AdminsProject2(props: Props, state: State) {
-  const classes = useStyles();
-  console.log(state.usersOnProject, 'state.userOnProject de AdminsProject2')
-
+export default function AdminsProject2(props: Props) {
   useEffect(() => {
-    console.log(props.dataProject, 'DataProject')
-  }, [props.dataProject]);
+    console.log(props.dataProject, 'useEffect')
+  }, [props.dataProject])
 
-  let dataProject = {
-    projectName: '',
-    projectCode: '',
-    startDate: '',
-    endDate: '',
-    hours: '',
-    budget: '',
-    usersOnProject: [],
-    workPackagesOnProject: [],
-    reportingMonth: '',
-    reportingBudget: '',
-    directsCosts: '',
-    indirectsCosts: '',    
-  }
-
-  const { value: projectName, bind: bindProjectName, reset: resetProjectName } = useInput('')
-  const { value: projectCode, bind: bindProjectCode, reset: resetProjectCode } = useInput('')
-  const { value: startDate, bind: bindStartDate, reset: resetStartDate } = useInput('')
-  const { value: endDate, bind: bindEndDate, reset: resetEndDate } = useInput('')
-  const { value: hoursAllowed, bind: bindHoursAllowed, reset: resetHoursAllowed } = useInput('')
-  const { value: budgetAllowed, bind: bindBudgetAllowed, reset: resetBudgetAllowed } = useInput('')
-  const { value: users, bind: bindUsers, reset: resetUsers } = useInput('')
-  const { value: workPackages, bind: bindWorkPackages, reset: resetWorkPackages } = useInput('')
-  const { value: financialsReportingMonth, bind: bindFinancialsReportingMonth, reset: resetFinancialsReportingMonth } = useInput('')
-  const { value: financialsReportingBudget, bind: bindFinancialsReportingBudget, reset: resetFinancialsReportingBudget } = useInput('')
-  const { value: directsCosts, bind: bindDirectsCosts, reset: resetDirectsCosts } = useInput('')
-  const { value: indirectsCosts, bind: bindIndirectsCosts, reset: resetIndirectsCosts } = useInput('')
-
-  const defineUserOnProject = (value: string) => {
-
-  }
-
+  const classes = useStyles();
+  
   const showInfos = () => {
     props.setIsModalOpened(true)
   }
 
   const send = () => {
+    console.log(props.dataProject)
+    props.addDataProject(props.dataProject)
+    props.resetDataProject()
+  }
 
-    dataProject = {
-      projectName: projectName,
-      projectCode: projectCode,
-      startDate: startDate,
-      endDate: endDate,
-      hours: hoursAllowed,
-      budget: budgetAllowed,
-      usersOnProject: [],
-      workPackagesOnProject: [],
-      reportingMonth: financialsReportingMonth,
-      reportingBudget: financialsReportingBudget,
-      directsCosts: directsCosts,
-      indirectsCosts: indirectsCosts,    
-    }
+  const handleChangeDataProject = (value: string, field: 'projectName' | 'projectCode' | 'startDate' | 'endDate' | 'hours' | 'budget' | 'reportingMonth' | 'reportingBudget' | 'directsCosts' | 'indirectsCosts' ) => {
+    const state = props.dataProject
+    state[field] = value
+    props.updateDataProject(state)
+  }
 
-    props.updateDataProject(dataProject);
-    props.addDataProject(dataProject);
+  const validationString = (string: string) => {
     
+    let stringRegExp = new RegExp('^[^;|<>/][a-zA-Z0-9.-_]+[^;|<>/]$')
+    let testString = stringRegExp.test(string)
+    console.log(testString, 'test du String')
+    if(testString) {
+      return false
+    } else {
+      return true
+    }
+  }
+  
 
-    resetProjectName();
-    resetProjectCode();
-    resetStartDate();
-    resetEndDate();
-    resetHoursAllowed();
-    resetBudgetAllowed();
-    resetFinancialsReportingMonth();
-    resetFinancialsReportingBudget();
-    resetDirectsCosts();
-    resetIndirectsCosts();
+  const validationNumber = (string: string) => {
+    
+    let stringRegExp = new RegExp('^[0-9.-_/]+')
+    let testString = stringRegExp.test(string)
+    console.log(testString, 'test du String')
+    if(testString) {
+      return false
+    } else {
+      return true
+    }
   }
 
   return(
     <Container>
       <div>
-        <div className={classes.formBox}>
-          <FormControl className={classes.formControl}>
+        <div className={ classes.formBox }>
+          <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="my-input">Project Name</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" {...bindProjectName}/>
+            <Input
+              error={validationString(props.dataProject.projectName)}
+              // error={ props.dataProject.projectName == '' && !props.dataProject.projectName.match("/^[a-zA-Z][0-9]$/") }
+              id="my-input" 
+              aria-describedby="my-helper-text" 
+              value={ props.dataProject.projectName }
+              onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'projectName') } />
             <FormHelperText id="my-helper-text">enter the project name.</FormHelperText>
+            {/* <Button type="reset"></Button> */}
           </FormControl>
-          <FormControl className={classes.formControl}>
+          <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="my-input">Project Code</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" {...bindProjectCode}/>
+            <Input 
+                error={validationString(props.dataProject.projectCode)}
+              id="my-input" 
+              aria-describedby="my-helper-text" 
+              value={ props.dataProject.projectCode }
+              onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'projectCode') } />
             <FormHelperText id="my-helper-text">enter the project codes.</FormHelperText>
           </FormControl>
         </div>
         <div className='admins-project-form'>
-          <FormControl className={classes.formControl}>
+          <FormControl className={ classes.formControl }>
             <TextField
+              error={validationNumber(props.dataProject.startDate)}
               id="datetime-local"
               label="start date"
               type="date"
-              defaultValue=""
-              // className={classes.textField}
+              value={ props.dataProject.startDate }
               InputLabelProps={{
                 shrink: true,
               }}
-              {...bindStartDate}
-            />
+              onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'startDate') } />
             <FormHelperText id="my-helper-text">project start date.</FormHelperText>
-
           </FormControl>
-          <FormControl className={classes.formControl}>
-          <TextField
-            id="datetime-local"
-            label="end date"
-            type="date"
-            defaultValue=""
-            // className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            {...bindEndDate}
-          />
+          <FormControl className={ classes.formControl }>
+            <TextField
+              error={validationNumber(props.dataProject.startDate)}
+              id="datetime-local"
+              label="end date"
+              type="date"
+              value={ props.dataProject.endDate }
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'endDate') } />
             <FormHelperText id="my-helper-text">project end date.</FormHelperText>
-
           </FormControl>
         </div>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Allocated hours</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...bindHoursAllowed}/>
+          <Input 
+             error={validationNumber(props.dataProject.hours)}
+            id="my-input" 
+            aria-describedby="my-helper-text" 
+            value={ props.dataProject.hours }
+            onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'hours') } />
           <FormHelperText id="my-helper-text">enter the allocated hours.</FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Allocated Budget</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...bindBudgetAllowed}/>
+          <Input
+             error={validationNumber(props.dataProject.budget)} 
+            id="my-input" 
+            aria-describedby="my-helper-text" 
+            value={ props.dataProject.budget }
+            onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'budget') } />
           <FormHelperText id="my-helper-text">enter the allocated budget.</FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
         <InputLabel id="demo-simple-select-label">Participant users</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select" 
-        >
+          id="demo-simple-select" >
+
           <AdminsProjectUsersCheckBox 
-            userList={props.userList} 
-            updateDataProject={props.updateDataProject} 
-            
-          />
+            userList={ props.userList } 
+            updateDataProject={ props.updateDataProject } />
+
         </Select>
         <FormHelperText id="my-helper-text">enter the participant users.</FormHelperText>
       </FormControl>
-      <FormControl className={classes.formControl}>
+      <FormControl className={ classes.formControl }>
         <InputLabel id="demo-simple-select-label">Work packages</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          {...bindWorkPackages} 
-        >
-         <AdminsProjectWpCheckBox wp={[
-          { value: 'wp1'},
-          { value: 'wp2'},
-          { value: 'wp3'},
-          { value: 'wp4'},
-          { value: 'wp5'},
-          { value: 'wp6'},
-          { value: 'wp7'},
-          { value: 'wp8'},
-          { value: 'wp9'},
-          { value: 'wp10'},
-          { value: 'wp11'},
-          { value: 'wp12'},
-          { value: 'wp13'},
-          { value: 'wp14'},
-          { value: 'wp15'},
-          { value: 'wp16'},
-          { value: 'wp17'},
-          { value: 'wp18'},
-          { value: 'wp19'},
-          { value: 'wp20'}, ]} 
-        />
+          id="demo-simple-select">
+
+         <AdminsProjectWpCheckBox  />
+
         </Select>
         <FormHelperText id="my-helper-text">Allocated work packages.</FormHelperText>
       </FormControl>
-      <FormControl className={classes.formControl}>
+      <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Financials reporting month</InputLabel>
-          <Input type='month' id="my-input" aria-describedby="my-helper-text" {...bindFinancialsReportingMonth} />
+          <Input 
+             error={validationNumber(props.dataProject.reportingMonth)}
+            type='month' 
+            id="my-input" 
+            aria-describedby="my-helper-text" 
+            value={ props.dataProject.reportingMonth }
+            onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'reportingMonth') } />
           <FormHelperText id="my-helper-text"></FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Financials reporting budget</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...bindFinancialsReportingBudget}/>
+          <Input 
+           error={validationNumber(props.dataProject.reportingBudget)}
+          id="my-input" 
+          aria-describedby="my-helper-text" 
+          value={ props.dataProject.reportingBudget }
+          onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'reportingBudget') } />
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Directs costs</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...bindDirectsCosts}/>
+          <Input 
+          error={validationNumber(props.dataProject.directsCosts)}
+          id="my-input" 
+          aria-describedby="my-helper-text" 
+          value={ props.dataProject.directsCosts }
+          onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'directsCosts') } />
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Indirects costs</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" {...bindIndirectsCosts}/>
+          <Input 
+          error={validationNumber(props.dataProject.indirectsCosts)}
+          id="my-input" 
+          aria-describedby="my-helper-text" 
+          value={ props.dataProject.indirectsCosts }
+          onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'indirectsCosts') } />
           <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
         </FormControl>
       </div>
       <FormControl  className='formControlInfos' >
-        <Button variant="contained" color="primary"  onClick={() => showInfos()}>
+        <Button variant="contained" color="primary"  onClick={ () => showInfos() }>
           Show infos
         </Button>
       </FormControl>
       <FormControl  className='formControlBoxes' >
-        <Button variant="contained" color="primary"  onClick={() => send()}>
+        <Button type='reset' variant="contained" color="primary"  onClick={ () => send() }>
           Send
         </Button>
       </FormControl>
-      <AdminsProjectModals isModalOpened={props.isModalOpened} setIsModalOpened={props.setIsModalOpened} state={[state]}/>
+      <AdminsProjectModals isModalOpened={ props.isModalOpened } setIsModalOpened={ props.setIsModalOpened } />
     </Container>
   )
 }

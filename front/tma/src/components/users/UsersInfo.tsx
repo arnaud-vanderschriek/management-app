@@ -29,6 +29,7 @@ export default function UsersInfo(props: Props) {
 
   return (
     <div>
+      <h3>Welcome: {props.user.username}</h3>
       <div id="userInfosOptions">
         <label>Select month</label>
         <input type='month' value='2021-04'></input>

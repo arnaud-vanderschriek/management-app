@@ -91,8 +91,8 @@ export class AdminsProject extends React.Component<Props, State> {
   }
 
   send = () => {
-    this.props.updateDataProject(this.state);
-    this.props.addDataProject(this.state);
+    // this.props.updateDataProject(this.state);
+    // this.props.addDataProject(this.state);
     // this.state = this.state;
   }
 
