@@ -18,6 +18,7 @@ interface Props {
   updateDataProject: (payload: DataProject) => void,
   addDataProject: (payload: DataProject ) => Promise<void>,
   setIsModalOpened: (isModalOpened: boolean) => void,
+  resetDataProject: () => void,
 }
 
 export class AdminsPages extends React.Component<Props> {
@@ -45,7 +46,9 @@ export class AdminsPages extends React.Component<Props> {
         userList={this.props.usersList} 
         setIsModalOpened={this.props.setIsModalOpened} 
         isModalOpened={this.props.isModalOpened} 
-        dataProject={this.props.dataProject} />
+        dataProject={this.props.dataProject} 
+        resetDataProject={this.props.resetDataProject}
+        />
       }
 
     if(this.props.linkList === 'settings') {
@@ -68,7 +71,8 @@ const mapState = (state: RootState) => ({
 const mapDispatch = (dispatch: RootDispatch) => ({
   updateDataProject: dispatch.admin.updateDataProject,
   addDataProject: dispatch.admin.addDataProject,
-  setIsModalOpened: dispatch.users.setIsModalOpened
+  setIsModalOpened: dispatch.users.setIsModalOpened,
+  resetDataProject: dispatch.admin.resetDataProject,
 })
 
 

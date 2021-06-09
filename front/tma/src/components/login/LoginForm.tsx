@@ -27,6 +27,7 @@ export class LoginForm extends React.Component<Props,State> {
   handleOnChange = (field: "username" | "password", value: string) => {
     const state: State = {...this.state};   
     state[field] = value;
+    console.log(state, 'state in loginForm')
     this.setState(state)
   }
 

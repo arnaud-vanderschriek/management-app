@@ -11,7 +11,7 @@ export interface DataProject {
     hours: string,
     budget: string,
     usersOnProject: string[],
-    workPackagesOnProject: WorkPackages[],
+    workPackagesOnProject: string[],
     directsCosts: string,
     indirectsCosts: string,
     reportingMonth: string,

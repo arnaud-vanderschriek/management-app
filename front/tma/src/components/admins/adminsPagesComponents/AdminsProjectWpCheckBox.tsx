@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -6,10 +6,14 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Wp } from '..';
+import { DataProject } from '..';
+import { RootDispatch, RootState } from '../../state/store';
+import { connect } from 'react-redux';
+import { wp } from '../helpers/wpArray'
 
 interface Props {
-  wp: Wp[],
+  dataProject: DataProject,
+  updateWpOnProject: (payload: string[]) => void,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -21,42 +25,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdminsProjectWpCheckBox(props: Props) {
+function AdminsProjectWpCheckBox(props: Props) {
   const classes = useStyles();
-  const [tab, setTab] = useState<Wp[]>([]);
-
-  useEffect(() => {
-    // defineUserOnProjectCheckBox((e: React.ChangeEvent<HTMLInputElement>), (value: any))
-    console.log(tab, 'tab de départ')  
-  }, [tab]);
 
   const defineWpOnProjectCheckBox = ( e: React.ChangeEvent<HTMLInputElement>, value: any) => {
     if(e.target.checked) {
-     setTab([...tab, value])
-     console.log(tab)
+      const oldValue = props.dataProject.workPackagesOnProject || []
+      props.updateWpOnProject([...oldValue, value])
     } else {
-      setTab(tab.filter(item => item !== value))
+        const newValue = props.dataProject.workPackagesOnProject.filter(item => item !== value)
+        props.updateWpOnProject(newValue)
     } 
   }
 
   return (
-    <div className={classes.root}>
-    <FormControl component="fieldset" className={classes.formControl}>
+    <div className={ classes.root }>
+    <FormControl component="fieldset" className={ classes.formControl }>
       <FormLabel component="legend">Assign work packages on project</FormLabel>
       <FormGroup>
-        {props.wp.map((elem) => 
+        { wp.map((elem: any) =>
           <FormControlLabel
-            control={<Checkbox 
-            // checked={elem.value} 
-            onChange={(e) => defineWpOnProjectCheckBox(e, elem.value)} 
-            name={elem.value} 
-            />}
-            label={elem.value} 
-            />
-        )} 
+            control={ <Checkbox 
+            checked={ 
+              props.dataProject.workPackagesOnProject ? 
+              props.dataProject.workPackagesOnProject.includes(elem.value) : 
+              false 
+            } 
+            onChange={ (e) => defineWpOnProjectCheckBox(e, elem.value) } 
+            name={ elem.value } /> }
+            label={ elem.value } />
+        ) }
       </FormGroup>
       <FormHelperText>Be careful</FormHelperText>
     </FormControl>
   </div>
   );
 }
+
+const mapState = (state: RootState) => ({
+  dataProject: state.admin.dataProject
+})
+
+const mapDispatch = (dispatch: RootDispatch) => ({
+  updateWpOnProject: dispatch.admin.updateWpOnProject,
+})
+
+export default connect(mapState, mapDispatch)(AdminsProjectWpCheckBox)

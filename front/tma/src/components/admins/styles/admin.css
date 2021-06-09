@@ -221,3 +221,52 @@
     background-color: #3f51b5;
     color: white
 }
+
+
+
+#tableAdminsTimesheet {
+    border: 1px solid black;
+}
+
+#theadTabelAdminsTimeSheet {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+
+#tbodyTableAdminsTimeSheet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#tfootTabelAdminsTimeSheet {
+    border-top: 1px solid black;
+}
+#boxRightTheadTabelAdminsTimeSheet {
+    margin-left: 20px;
+}
+
+#boxLeftTheadTabelAdminsTimeSheet {
+    margin-left: 35%;
+}
+
+.boxTheadTabelAdminsTimeSheet {
+    justify-content: space-between;
+}
+
+.trTBody {
+    /* width: 100%; */
+}
+
+.tbodyAdminsTimeSHeetTr {
+    display: flex;
+    justify-content: space-around;
+}
+
+.boxTfoot {
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
