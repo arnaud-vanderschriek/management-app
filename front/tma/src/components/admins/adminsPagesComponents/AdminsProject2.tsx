@@ -67,7 +67,7 @@ export default function AdminsProject2(props: Props, state: State) {
     projectCode: '',
     startDate: '',
     endDate: '',
-    hours: '',
+    hours: '',  
     budget: '',
     usersOnProject: [],
     workPackagesOnProject: [],
