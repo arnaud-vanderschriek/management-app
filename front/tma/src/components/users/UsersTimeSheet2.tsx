@@ -99,6 +99,11 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
   };
 }
 
+const weekFunction = (e: string) => {
+  console.log(e, 'weekEvent')
+}
+
+
 function Row(props: any) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -152,11 +157,12 @@ function Row(props: any) {
 
   return (
     <React.Fragment>
+      {/* <input type='month'></input> */}
       <TableRow className={classes.root}>
-        <TableCell>
+        {/* <TableCell>
           <input className="inputTimeSheet" type="date" {...bindStartDate}></input>
           <input className="inputTimeSheet" type="date" {...bindEndDate}></input>
-        </TableCell>
+        </TableCell> */}
         {/* <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -352,6 +358,10 @@ function UsersTimeSheet2(props: Props) {
 
   return (
       <TableContainer component={Paper}>
+        <div>
+          <label>Enter the choosen week</label>
+          <input type='week' onChange={(e) => weekFunction((e.target as HTMLInputElement).value)}></input>
+        </div>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>

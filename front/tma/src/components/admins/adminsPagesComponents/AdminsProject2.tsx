@@ -41,45 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminsProject2(props: Props) {
   useEffect(() => {
-<<<<<<< HEAD
-    console.log(props.dataProject, 'DataProject')
-  }, [props.dataProject]);
-
-  let dataProject = {
-    projectName: '',
-    projectCode: '',
-    startDate: '',
-    endDate: '',
-    hours: '',  
-    budget: '',
-    usersOnProject: [],
-    workPackagesOnProject: [],
-    reportingMonth: '',
-    reportingBudget: '',
-    directsCosts: '',
-    indirectsCosts: '',    
-  }
-
-  const { value: projectName, bind: bindProjectName, reset: resetProjectName } = useInput('')
-  const { value: projectCode, bind: bindProjectCode, reset: resetProjectCode } = useInput('')
-  const { value: startDate, bind: bindStartDate, reset: resetStartDate } = useInput('')
-  const { value: endDate, bind: bindEndDate, reset: resetEndDate } = useInput('')
-  const { value: hoursAllowed, bind: bindHoursAllowed, reset: resetHoursAllowed } = useInput('')
-  const { value: budgetAllowed, bind: bindBudgetAllowed, reset: resetBudgetAllowed } = useInput('')
-  const { value: users, bind: bindUsers, reset: resetUsers } = useInput('')
-  const { value: workPackages, bind: bindWorkPackages, reset: resetWorkPackages } = useInput('')
-  const { value: financialsReportingMonth, bind: bindFinancialsReportingMonth, reset: resetFinancialsReportingMonth } = useInput('')
-  const { value: financialsReportingBudget, bind: bindFinancialsReportingBudget, reset: resetFinancialsReportingBudget } = useInput('')
-  const { value: directsCosts, bind: bindDirectsCosts, reset: resetDirectsCosts } = useInput('')
-  const { value: indirectsCosts, bind: bindIndirectsCosts, reset: resetIndirectsCosts } = useInput('')
-
-  const defineUserOnProject = (value: string) => {
-
-  }
-=======
     console.log(props.dataProject, 'useEffect')
   }, [props.dataProject])
->>>>>>> 419d05d52a42d300684b8a49244f93893e250ea3
 
   const classes = useStyles();
   
@@ -90,7 +53,7 @@ export default function AdminsProject2(props: Props) {
   const send = () => {
     console.log(props.dataProject)
     props.addDataProject(props.dataProject)
-    props.resetDataProject()
+    // props.resetDataProject()
   }
 
   const handleChangeDataProject = (value: string, field: 'projectName' | 'projectCode' | 'startDate' | 'endDate' | 'hours' | 'budget' | 'reportingMonth' | 'reportingBudget' | 'directsCosts' | 'indirectsCosts' ) => {
