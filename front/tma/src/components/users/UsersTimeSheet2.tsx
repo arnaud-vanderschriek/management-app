@@ -90,15 +90,22 @@ function Row(props: Props) {
   const classes = useRowStyles();
 
 
-  const handleChangeTimeSheet = (value: string, field: 'week' | 'project'| 'task' |'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun' ) => {
+  const handleChangeTimeSheet = (value: string , field: 'week' | 'project'| 'task' |'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun' ) => {
     const state = props.timeSheetDatas
     state[field] = value
     console.log(state, 'timesheetdatas in function')
     props.setTimeSheetDatas(state)
   }
 
+  const handleBillable = (value: boolean , field: 'bill') => {
+    const state = props.timeSheetDatas
+    state[field] = value
+    console.log(state, 'timesheetdatas in function')
+    props.setTimeSheetDatas(state)
+  }
+ 
   const handleSendTimeSheet = () => {
-
+    props.postTimeSheetDatas(props.timeSheetDatas)
   }
 
   return (
@@ -136,6 +143,7 @@ function Row(props: Props) {
             disableRipple
             color="default"
             checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+            onClick={(e) => handleBillable((e.target as HTMLInputElement).checked, 'bill')}
             icon={<span className={classes.icon} />}
             inputProps={{ 'aria-label': 'decorative checkbox' }} />
         </TableCell>
