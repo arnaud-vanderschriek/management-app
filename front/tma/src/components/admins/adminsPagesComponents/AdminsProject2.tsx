@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, InputLabel, FormHelperText, Container, TextField } from "@material-ui/core";
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
@@ -8,15 +8,16 @@ import { DataProject, UsersList } from "../index";
 import AdminsProjectUsersCheckBox from "./AdminsProjectUsersCheckBox";
 import AdminsProjectModals from "./AdminsProjectModals";
 import AdminsProjectWpCheckBox from "./AdminsProjectWpCheckBox";
-import { TramOutlined } from "@material-ui/icons";
 
 interface Props {
   userList: UsersList[],
   dataProject: DataProject,
   isModalOpened: boolean,
+  isDataProject: boolean,
   updateDataProject: (payload: DataProject) => void,
   addDataProject: (payload: DataProject ) => Promise<void>,
   setIsModalOpened: (isModalOpened: boolean) => void,
+  setIsDataProject: (isDataProject: boolean) => void,
   resetDataProject: () => void,
 }
 
@@ -38,12 +39,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 export default function AdminsProject2(props: Props) {
   useEffect(() => {
     console.log(props.dataProject, 'useEffect')
   }, [props.dataProject])
 
+  const [validatedString, setValidatedString] = useState(false)
+  let obj = {
+    'projectName': false,
+    'projectCode': false,
+    'startDate' : false,
+    'endDate': false,
+    'hours': false,
+    'budget': false,
+    'reportingMonth': false,
+    'reportingBudget': false,
+    'directsCosts': false,
+    'indirectsCosts': false,
+    }
   const classes = useStyles();
   
   const showInfos = () => {
@@ -62,27 +75,57 @@ export default function AdminsProject2(props: Props) {
     props.updateDataProject(state)
   }
 
-  const validationString = (string: string) => {
-    
+  const validationString = (string: string, data: string) => {
+  
     let stringRegExp = new RegExp('^[^;|<>/][a-zA-Z0-9.-_]+[^;|<>/]$')
     let testString = stringRegExp.test(string)
-    console.log(testString, 'test du String')
+    
     if(testString) {
+      if(data === 'projectName') obj.projectName = true
+      if(data === 'projectCode') obj.projectCode = true
       return false
     } else {
+      obj.projectName = false
+      obj.projectCode = false
       return true
     }
   }
   
-
-  const validationNumber = (string: string) => {
+  const validationNumber = (string: string, data: string) => {
     
     let stringRegExp = new RegExp('^[0-9.-_/]+')
     let testString = stringRegExp.test(string)
-    console.log(testString, 'test du String')
+
     if(testString) {
+      if(data === 'startDate') obj.startDate = true
+      if(data === 'endDate') obj.endDate = true
+      if(data === 'hours') obj.hours = true
+      if(data === 'budget') obj.budget = true 
+      if(data === 'reportingBudget') obj.reportingBudget = true
+      if(data === 'reportingMonth') obj.reportingMonth = true
+      if(data === 'directsCosts') obj.directsCosts = true
+      if(data === 'indirectsCosts') obj.indirectsCosts = true
+
       return false
     } else {
+      obj.startDate = false
+      obj.endDate = false
+      obj.hours = false
+      obj.budget = false
+      obj.reportingBudget = false
+      obj.reportingMonth = false
+      obj.directsCosts = false
+      obj.indirectsCosts = false
+      
+      return true
+    }
+  }
+
+  const buttonValidity = () => {
+    if(obj.projectName && obj.projectCode && obj.budget && obj.directsCosts && obj.startDate && obj.endDate && obj.hours && obj.reportingBudget && obj.reportingMonth && obj.indirectsCosts  === true) {
+      return false
+    }
+    else {
       return true
     }
   }
@@ -94,19 +137,17 @@ export default function AdminsProject2(props: Props) {
           <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="my-input">Project Name</InputLabel>
             <Input
-              error={validationString(props.dataProject.projectName)}
-              // error={ props.dataProject.projectName == '' && !props.dataProject.projectName.match("/^[a-zA-Z][0-9]$/") }
+              error={validationString(props.dataProject.projectName, 'projectName')}
               id="my-input" 
               aria-describedby="my-helper-text" 
               value={ props.dataProject.projectName }
               onChange={ (e) => handleChangeDataProject((e.target as HTMLInputElement).value, 'projectName') } />
             <FormHelperText id="my-helper-text">enter the project name.</FormHelperText>
-            {/* <Button type="reset"></Button> */}
           </FormControl>
           <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="my-input">Project Code</InputLabel>
             <Input 
-                error={validationString(props.dataProject.projectCode)}
+              error={validationString(props.dataProject.projectCode, 'projectCode')}
               id="my-input" 
               aria-describedby="my-helper-text" 
               value={ props.dataProject.projectCode }
@@ -117,7 +158,7 @@ export default function AdminsProject2(props: Props) {
         <div className='admins-project-form'>
           <FormControl className={ classes.formControl }>
             <TextField
-              error={validationNumber(props.dataProject.startDate)}
+              error={validationNumber(props.dataProject.startDate, 'startDate')}
               id="datetime-local"
               label="start date"
               type="date"
@@ -130,7 +171,7 @@ export default function AdminsProject2(props: Props) {
           </FormControl>
           <FormControl className={ classes.formControl }>
             <TextField
-              error={validationNumber(props.dataProject.startDate)}
+              error={validationNumber(props.dataProject.endDate, 'endDate')}
               id="datetime-local"
               label="end date"
               type="date"
@@ -145,7 +186,7 @@ export default function AdminsProject2(props: Props) {
         <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Allocated hours</InputLabel>
           <Input 
-             error={validationNumber(props.dataProject.hours)}
+             error={validationNumber(props.dataProject.hours, 'hours')}
             id="my-input" 
             aria-describedby="my-helper-text" 
             value={ props.dataProject.hours }
@@ -155,7 +196,7 @@ export default function AdminsProject2(props: Props) {
         <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Allocated Budget</InputLabel>
           <Input
-             error={validationNumber(props.dataProject.budget)} 
+             error={validationNumber(props.dataProject.budget, 'budget')} 
             id="my-input" 
             aria-describedby="my-helper-text" 
             value={ props.dataProject.budget }
@@ -189,7 +230,7 @@ export default function AdminsProject2(props: Props) {
       <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Financials reporting month</InputLabel>
           <Input 
-             error={validationNumber(props.dataProject.reportingMonth)}
+             error={validationNumber(props.dataProject.reportingMonth, 'reportingMonth')}
             type='month' 
             id="my-input" 
             aria-describedby="my-helper-text" 
@@ -200,7 +241,7 @@ export default function AdminsProject2(props: Props) {
         <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Financials reporting budget</InputLabel>
           <Input 
-           error={validationNumber(props.dataProject.reportingBudget)}
+           error={validationNumber(props.dataProject.reportingBudget, 'reportingBudget')}
           id="my-input" 
           aria-describedby="my-helper-text" 
           value={ props.dataProject.reportingBudget }
@@ -210,7 +251,7 @@ export default function AdminsProject2(props: Props) {
         <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Directs costs</InputLabel>
           <Input 
-          error={validationNumber(props.dataProject.directsCosts)}
+          error={validationNumber(props.dataProject.directsCosts, 'directsCosts')}
           id="my-input" 
           aria-describedby="my-helper-text" 
           value={ props.dataProject.directsCosts }
@@ -220,7 +261,7 @@ export default function AdminsProject2(props: Props) {
         <FormControl className={ classes.formControl }>
           <InputLabel htmlFor="my-input">Indirects costs</InputLabel>
           <Input 
-          error={validationNumber(props.dataProject.indirectsCosts)}
+          error={validationNumber(props.dataProject.indirectsCosts, 'indirectsCosts')}
           id="my-input" 
           aria-describedby="my-helper-text" 
           value={ props.dataProject.indirectsCosts }
@@ -234,7 +275,7 @@ export default function AdminsProject2(props: Props) {
         </Button>
       </FormControl>
       <FormControl  className='formControlBoxes' >
-        <Button type='reset' variant="contained" color="primary"  onClick={ () => send() }>
+        <Button type='reset' variant="contained" color="primary"  disabled={ buttonValidity() } onClick={ () => send() }>
           Send
         </Button>
       </FormControl>

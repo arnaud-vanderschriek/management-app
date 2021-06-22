@@ -17,13 +17,23 @@ export const users = createModel({
       usersData: [],
       userProject: [],
       isModalOpened: false,
-      timeSheetDatas: {},
+      timeSheetDatas: {} as TimeSheetDataInterface,
     },
     reducers: {
       setIsModalOpened: (state: UsersState, payload: boolean): UsersState => ({...state, isModalOpened: payload}),
       setLinkList: (state: UsersState, payload: string): UsersState => ({...state, linkList: payload}),
       setDataUsers: (state: UsersState, payload: UserDataInterface[]): UsersState => ({...state, usersData: payload}),
-      setTimeSheetDatas: (state: UsersState, payload: TimeSheetDataInterface): UsersState => ({...state, timeSheetDatas: payload}),
+      setTimeSheetDatas: (state: UsersState, payload: TimeSheetDataInterface): UsersState => {
+        let timeSheetDatas = {
+          ...state.timeSheetDatas,
+          ...payload
+        }
+        // console.log(timeSheetDatas, 'timesheetdata in models')
+        return {
+          ...state,
+          timeSheetDatas
+        }
+      },
       setUserProject: (state: UsersState, payload: UserProjectInterface[]): UsersState => ({...state, userProject: payload}),
     },
     effects: {

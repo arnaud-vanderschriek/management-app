@@ -10,7 +10,7 @@ interface Props {
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
   postTimeSheetDatas: () => Promise<void>,
   fetchDataProject: (id: number) => Promise<void>,
-  // timeSheetDatas: {},
+  timeSheetDatas: TimeSheetDataInterface,
   isModalOpened: boolean,
   user: UserLoginInterface,
   usersData: UserDataInterface[],
@@ -31,7 +31,7 @@ export class UsersPageContainer extends React.Component<Props> {
           linkList={this.props.linkList} 
           fetchDataUser={this.props.fetchDataUser}
           setTimeSheetDatas={this.props.setTimeSheetDatas}
-          // timeSheetDatas={this.props.timeSheetDatas}
+          timeSheetDatas={this.props.timeSheetDatas}
           postTimeSheetDatas={this.props.postTimeSheetDatas}
           fetchDataProject={this.props.fetchDataProject}
           userProject={this.props.userProject}

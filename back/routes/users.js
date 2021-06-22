@@ -8,6 +8,7 @@ let bcrypt = require('bcryptjs');
 const generateToken = require("../helpers/generateToken.js");
 const { number } = require("joi");
 const { Console } = require("console");
+const { nextTick } = require("process");
 const users = express.Router();
 
 require('dotenv').config();
@@ -65,48 +66,35 @@ users.post('/token/verify', (req, res) => {
   res.json({data: "yop"});
 })
 
+
+
 users.post('/dataProject', (req, res) => {
-  let arr = []
-  console.log("project:", req.body)
+  // there is missing some others datas from dataProject , there will be implemented later see "req.body" to get the rest
   connexion.query(`INSERT INTO project (project_name, project_code, start_date, end_date, hours, budget)
   VALUES ('${req.body.projectName}', '${req.body.projectCode}', '${req.body.startDate}', '${req.body.endDate}', '${req.body.hours}', '${req.body.budget}')`, (err, result) => {
     if (err) res.json('impossible to insert dataProject')
     else {
-      console.log(result, 'spéééééé')
-      // res.json('tout est bien')
+      let usersIdArray = []
+
       connexion.query(`SELECT ID from project WHERE project_name='${req.body.projectName}'`, (err, projectID) => {
         if(err) res.json('impossible to have project id')
         else {
-          console.log(projectID[0].ID, 'id du project')
-          console.log(req.body.usersOnProject, 'usersOnProject')
-          for(let y= 0; y < req.body.usersOnProject.length ; y++) {
-            connexion.query(`SELECT ID from users WHERE firstname='${req.body.usersOnProject[y]}'`, (err, usersID) => {
+          for(let i= 0; i < req.body.usersOnProject.length ; i++) {
+
+            connexion.query(`SELECT ID from users WHERE firstname='${req.body.usersOnProject[i]}'`, (err, usersID) => {
               if (err) res.json('impossible de recupérer l id du users')
               else {
-                arr.push(usersID[0].ID)
-                console.log(usersID[0].ID, 'id du users')
-                console.log(arr, 'array des id des users')
-              //   for(let i = 0; i < arr.length ; i ++) {
-              //   connexion.query(`INSERT INTO projectUsers (id_project, id_user) VALUES ('${projectID[0].ID}', '${arr[i]}')`, (err, projectUsersResult) => {
-              //     if(err) res.json('impossible to insert in projectUsers')
-              //     else {
-              //       res.json('insert into projectUsers successful')
-              //     }
-              //   })
-              // }
-            }
-          })
-          }
-          for(let i = 0; i < arr.length ; i ++) {
-            console.log("ça rentre")
-            connexion.query(`INSERT INTO projectUsers (id_project, id_user) VALUES ('${projectID[0].ID}', '${usersID[i]}')`, (err, projectUsersResult) => {
-              if(err) res.json('impossible to insert in projectUsers')
-              else {
-                console.log('tadaaam')
-                res.json('insert into projectUsers successful')
-              }
+                usersIdArray.push(usersID[0].ID)
+
+                connexion.query(`INSERT INTO projectUsers (id_project, id_user) VALUES ('${projectID[0].ID}', '${usersIdArray[i]}')`, (err, projectUsersResult) => {
+                  if(err) res.json('impossible to insert in projectUsers')
+                  else {
+                    // res.json('insert into projectUsers successful')
+                  }
+                })
+              } 
             })
-          } 
+          }
         }
       })
     }
@@ -128,13 +116,6 @@ users.post('/getProject', (req, res) => {
      res.json(response)
     }
   })
-  // connexion.query(`SELECT * FROM project WHERE ID=${req.body.id}`, (err, resultat) => {
-  //   if(err) res.json('error to fetch users')
-  //   else {
-  //     console.log(resultat, 'resultat du fetch project')
-  //     res.json(resultat)
-  //   }
-  // })
 })
 
 // SELECT * FROM projectUsers INNER JOIN project ON projectUsers.id_project = project.ID
@@ -170,7 +151,7 @@ users.get('/getAllUsers', (req, res) => {
       res.json(result)
     }
   })
-})
+})  
 
 users.post('/timesheet', (req, res) => {
   console.log(req.body, 'timesheetdatas')

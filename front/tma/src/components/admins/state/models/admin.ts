@@ -8,6 +8,7 @@ export interface DataProjectState {
   dataProject: DataProject,
   linkList: string | null,
   usersList: UsersList[],
+  isDataProject: boolean,
 }
 
 export const admin = createModel({
@@ -15,8 +16,10 @@ export const admin = createModel({
     dataProject: AdminFactory.createEmptyDataProject(),
     linkList: '',
     usersList: [],
+    isDataProject: true,
   },
   reducers: {
+    setIsDataProject: (state: DataProject, payload: boolean) => ({ ...state, isDataProject: payload }),
     resetDataProject: (state: DataProjectState) => ({ ...state, dataProject: AdminFactory.createEmptyDataProject() }),
     updateDataProject: (state: DataProjectState, payload: DataProject ): DataProjectState => {
       let dataProject = {

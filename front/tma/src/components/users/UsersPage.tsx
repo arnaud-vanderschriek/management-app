@@ -15,6 +15,7 @@ interface Props {
   user: UserLoginInterface,
   usersData: UserDataInterface[],
   userProject: UserProjectInterface[],
+  timeSheetDatas: TimeSheetDataInterface,
   postTimeSheetDatas: () => Promise<void>,
   fetchDataProject: (id: number) => Promise<void>,
   fetchDataUser: (id: {} ) => Promise<void>,
@@ -33,6 +34,7 @@ export class UsersPage extends React.Component<Props> {
           userDataID={this.props.user}
           fetchDataProject={this.props.fetchDataProject}
           userProject={this.props.userProject}
+          timeSheetDatas={this.props.timeSheetDatas}
           />
           
         )

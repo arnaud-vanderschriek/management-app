@@ -34,6 +34,7 @@ interface Props {
   userDataID: UserLoginInterface,
   userProject: UserProjectInterface[],
   isModalOpened: boolean,
+  timeSheetDatas: TimeSheetDataInterface,
   setIsModalOpened: (isModalOpened: boolean) => Promise<void>
   setTimeSheetDatas: (obj: TimeSheetDataInterface) => void,
   postTimeSheetDatas: (obj: TimeSheetDataInterface) => Promise<void>,
@@ -84,112 +85,49 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(name: string, calories: number, fat: number, carbs: number, protein: number, price: number) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-    ],
-  };
-}
-
-const weekFunction = (e: string) => {
-  console.log(e, 'weekEvent')
-}
-
-
-function Row(props: any) {
-  const { row } = props;
+function Row(props: Props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-  const { value: startDate, bind: bindStartDate, reset: resetStartDate } = useInput('')
-  const { value: endDate, bind: bindEndDate, reset: resetEndDate } = useInput('')
-  const { value: Project, bind: bindProject, reset: resetBinProject} = useInput('')
-  const { value: Task, bind: bindTask, reset: resetBinTask} = useInput('')
-  const { value: Bill, bind: bindBill, reset: resetBinBill} = useCheck(false)
-  const { value: Mon, bind: bindMon, reset: resetBindMon } = useInput('');
-  const { value: Tue, bind: bindTue, reset: resetBindTue } = useInput('');
-  const { value: Wed, bind: bindWed, reset: resetBindWed } = useInput('');
-  const { value: Thu, bind: bindThu, reset: resetBindThu } = useInput('');
-  const { value: Fri, bind: bindFri, reset: resetBindFri } = useInput('');
-  const { value: Sat, bind: bindSat, reset: resetBindSat } = useInput('');
-  const { value: Sun, bind: bindSun, reset: resetBindSun } = useInput('');
+
+  const handleChangeTimeSheet = (value: string, field: 'week' | 'project'| 'task' |'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun' ) => {
+    const state = props.timeSheetDatas
+    state[field] = value
+    console.log(state, 'timesheetdatas in function')
+    props.setTimeSheetDatas(state)
+  }
 
   const handleSendTimeSheet = () => {
-    let obj = {
-      userID: props.userDataID,
-      startDate: startDate,
-      endDate: endDate,
-      projet: Project,
-      task: Task,
-      bill: Bill,
-      mon: Mon,
-      tue: Tue,
-      wed: Wed,
-      thu: Thu,
-      fri: Fri,
-      sat: Sat,
-      sun: Sun, 
-    }
-    
-    props.postTimeSheetDatas(obj)
 
-    resetStartDate()
-    resetEndDate()
-    resetBinProject()
-    resetBinTask()
-    resetBinBill()
-    resetBindMon()
-    resetBindTue()
-    resetBindWed()
-    resetBindThu()
-    resetBindFri()
-    resetBindSat()
-    resetBindSun()
   }
 
   return (
     <React.Fragment>
-      {/* <input type='month'></input> */}
       <TableRow className={classes.root}>
-        {/* <TableCell>
-          <input className="inputTimeSheet" type="date" {...bindStartDate}></input>
-          <input className="inputTimeSheet" type="date" {...bindEndDate}></input>
-        </TableCell> */}
-        {/* <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell> */}
         <TableCell component="th" scope="row">
           <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'project')} 
+          >
 
-            {...bindProject} >
+          {props.userProject.map((elem: any) => (
+            <MenuItem value={elem}>{elem}</MenuItem>
+          ))}
 
-            {props.userProject.map((elem: any) => (
-              <MenuItem value={elem}>{elem}</MenuItem>
-            ))}
           </Select>
         </TableCell>
         <TableCell>
         <InputLabel></InputLabel>
           <Select
             labelId="demo-simple-select-label"
-
-            {...bindTask}
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'task')} 
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+
+            <MenuItem value={'10'}>Ten</MenuItem>
+            <MenuItem value={'20'}>Twenty</MenuItem>
+            <MenuItem value={'30'}>Thirty</MenuItem>
+
           </Select>
         </TableCell>
         <TableCell>
@@ -199,68 +137,49 @@ function Row(props: any) {
             color="default"
             checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
             icon={<span className={classes.icon} />}
-            inputProps={{ 'aria-label': 'decorative checkbox' }}
-
-            {...bindBill}
-          />
+            inputProps={{ 'aria-label': 'decorative checkbox' }} />
         </TableCell>
         <TableCell>
           <TextField 
             required 
             label="Required" 
-
-            {...bindMon}
-          />
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'mon')} />
         </TableCell>
         <TableCell>
           <TextField 
+            required 
+            label="Required" 
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'tue')} />
+        </TableCell>
+        <TableCell>
+        <TextField 
+            required 
+            label="Required" 
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'wed')} />
+        </TableCell>
+        <TableCell>
+        <TextField 
+            required 
+            label="Required" 
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'thu')} />
+        </TableCell>
+        <TableCell>
+        <TextField 
+            required 
+            label="Required" 
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'fri')} />
+        </TableCell>
+        <TableCell>
+        <TextField 
+            required 
+            label="Required"  
+            onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'sat')} />
+        </TableCell>
+        <TableCell>
+        <TextField 
           required 
           label="Required" 
-
-          {...bindTue}
-          />
-        </TableCell>
-        <TableCell>
-        <TextField 
-        required 
-        label="Required" 
-
-        {...bindWed}
-        />
-        </TableCell>
-        <TableCell>
-        <TextField 
-        required 
-        label="Required" 
-
-        {...bindThu}
-        />
-
-        </TableCell>
-        <TableCell>
-        <TextField 
-        required 
-        label="Required" 
-
-        {...bindFri}
-        />
-
-        </TableCell>
-        <TableCell>
-        <TextField 
-        required 
-        label="Required" 
-
-        {...bindSat}
-        />
-        </TableCell>
-        <TableCell>
-        <TextField 
-        required 
-        label="Required" 
-
-        {...bindSun}
-        />
+          onChange={(e) => handleChangeTimeSheet((e.target as HTMLInputElement).value, 'sun')} />
         </TableCell>
         <TableCell>
           <Button variant="contained" color="primary" onClick={() => props.setIsModalOpened(true) } >
@@ -289,20 +208,6 @@ function Row(props: any) {
                     <TableCell align="right">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow: any) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
               </Table>
             </Box>
           </Collapse>
@@ -313,59 +218,28 @@ function Row(props: any) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-  setTimeSheetDatas: () => {},
-  postTimeSheetDatas: () => {},
-  fetchDataProject: (id: number) => Promise,
-  userDataID: PropTypes.number.isRequired,
-  userProject: PropTypes.array.isRequired,
-  setIsModalOpened: () => {},
-};
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
 function UsersTimeSheet2(props: Props) {
-
-  // props.fetchDataProject(props.userDataID.id)
   useEffect(() => {
-    
     props.fetchDataProject(props.userDataID.id)
     console.log('userDataID: ', props.userDataID.id)
     // console.log('######', props.userDataID.id )
   }, [])
-  console.log(props.userProject, "userProject")
+
+  const weekFunction = (value: string, data: 'week') => {
+    const state = props.timeSheetDatas
+    state[data] = value
+    props.setTimeSheetDatas(state)
+  }
 
   return (
       <TableContainer component={Paper}>
         <div>
           <label>Enter the choosen week</label>
-          <input type='week' onChange={(e) => weekFunction((e.target as HTMLInputElement).value)}></input>
+          <input type='week' onChange={(e) => weekFunction((e.target as HTMLInputElement).value, 'week')}></input>
         </div>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
               <TableCell>Project</TableCell>
               <TableCell>Task</TableCell>
               <TableCell>Billable</TableCell>
@@ -381,12 +255,15 @@ function UsersTimeSheet2(props: Props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} postTimeSheetDatas={props.postTimeSheetDatas} userDataID={props.userDataID.idProject} 
-              userProject={props.userProject} setIsModalOpened={props.setIsModalOpened}
-              />
-            ))}
-          </TableBody>
+            <Row  fetchDataProject={props.fetchDataProject}
+                  postTimeSheetDatas={props.postTimeSheetDatas}
+                  isModalOpened={props.isModalOpened}
+                  userDataID={props.userDataID}
+                  setTimeSheetDatas={props.setTimeSheetDatas}
+                  userProject={props.userProject} 
+                  setIsModalOpened={props.setIsModalOpened} 
+                  timeSheetDatas={props.timeSheetDatas} />
+           </TableBody>
         </Table>
         <UserPagePopup />
         <div>
